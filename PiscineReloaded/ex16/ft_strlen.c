@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/03 12:32:43 by kemartin          #+#    #+#             */
-/*   Updated: 2018/10/03 12:34:37 by kemartin         ###   ########.fr       */
+/*   Updated: 2018/10/03 12:37:35 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,4 +18,4 @@ int     ft_strlen(char *str)
     while (str[i])
         i++;
     return (i);
-    }
+}
