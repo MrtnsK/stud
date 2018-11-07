@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 13:40:18 by kemartin          #+#    #+#             */
-/*   Updated: 2018/11/07 15:12:02 by kemartin         ###   ########.fr       */
+/*   Updated: 2018/11/07 17:44:11 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,10 @@ char			*ft_strnstr(const char *str, const char *to_find, size_t len);
 int				ft_strcmp(const char *s1, const char *s2);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 int		        ft_atoi(const char *str);
-int				ft_isalpha(char *s);
+int				ft_isalpha(int s);
+int             ft_isdigit(int nb);
+int             ft_isalnum(int c);
+int             ft_isascii(int c);
+int             ft_isprint(int c);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/16 22:28:27 by kemartin          #+#    #+#              #
-#    Updated: 2018/11/06 16:05:21 by kemartin         ###   ########.fr        #
+#    Updated: 2018/11/07 17:33:17 by kemartin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,11 @@ SRC =	ft_memset.c \
 		ft_strcmp.c \
 		ft_strncmp.c \
 		ft_atoi.c \
-		ft_isalpha.c
+		ft_isalpha.c \
+		ft_isdigit.c \
+		ft_isalnum.c \
+		ft_isascii.c \
+		ft_isprint.c
 
 OBJ = $(SRC:.c=.o)
 
