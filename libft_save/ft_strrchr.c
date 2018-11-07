@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 18:34:07 by kemartin          #+#    #+#             */
-/*   Updated: 2018/11/06 19:43:16 by kemartin         ###   ########.fr       */
+/*   Updated: 2018/11/07 14:35:19 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 char	*ft_strrchr(const char *s, int c)
 {
-	int i;
-	int tmp;
+	int		i;
+	char	*tmp;
 
 	i = 0;
-	tmp = 0;
+	tmp = NULL;
 	while (s[i])
 	{
-		if (s[i] == c)
-			tmp = i;
+		if (s[i] == (char)c)
+			tmp = (char *)s + i;
 		i++;
 	}
-	if (tmp != 0)
-		return ((char *)(s + tmp));
-	return (NULL);
+	if ((char)c == '\0')
+		return ((char *)(s + i));
+	return (tmp);
 }

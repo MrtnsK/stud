@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 13:40:18 by kemartin          #+#    #+#             */
-/*   Updated: 2018/11/06 19:47:00 by kemartin         ###   ########.fr       */
+/*   Updated: 2018/11/07 15:12:02 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,11 @@ char			*ft_strncat(char *dest, char *src, int nb);
 size_t			ft_strlcat(char *dest, const char *src, size_t size);
 char			*ft_strchr(const char *s, int c);
 char			*ft_strrchr(const char *s, int c);
-char			*ft_strstr(char *str, char *to_find);
-char			*ft_strnstr(char *str, char *to_find, size_t len);
-int				ft_strcmp(char *s1, char *s2);
-int				ft_strncmp(char *s1, char *s2, int n);
+char			*ft_strstr(const char *str, const char *to_find);
+char			*ft_strnstr(const char *str, const char *to_find, size_t len);
+int				ft_strcmp(const char *s1, const char *s2);
+int				ft_strncmp(const char *s1, const char *s2, size_t n);
+int		        ft_atoi(const char *str);
 int				ft_isalpha(char *s);
 
 #endif
