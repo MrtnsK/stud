@@ -1,27 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_strrev.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/05 16:42:17 by kemartin          #+#    #+#             */
-/*   Updated: 2018/11/08 17:56:50 by kemartin         ###   ########.fr       */
+/*   Created: 2018/11/08 20:27:48 by kemartin          #+#    #+#             */
+/*   Updated: 2018/11/08 20:57:01 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strcpy(char *dest, const char *src)
+char	*ft_strrev(char *str)
 {
 	int		i;
+	int		rev;
+	char	tmp;
 
 	i = 0;
-	while (src[i])
-	{
-		dest[i] = src[i];
+	rev = 0;
+	while (str[i])
 		i++;
+	i--;
+	while (rev <= i)
+	{
+		tmp = str[rev];
+		str[rev] = str[i];
+		str[i] = tmp;
+		rev++;
+		i--;
 	}
-	dest[i] = '\0';
-	return (dest);
+	return (str);
 }

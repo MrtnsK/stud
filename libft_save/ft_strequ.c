@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_strequ.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/05 16:42:17 by kemartin          #+#    #+#             */
-/*   Updated: 2018/11/08 17:56:50 by kemartin         ###   ########.fr       */
+/*   Created: 2018/11/08 15:39:33 by kemartin          #+#    #+#             */
+/*   Updated: 2018/11/08 15:50:35 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strcpy(char *dest, const char *src)
+int		ft_strequ(char const *s1, char const *s2)
 {
-	int		i;
+	int	i;
 
 	i = 0;
-	while (src[i])
-	{
-		dest[i] = src[i];
+	if (s1 == NULL || s2 == NULL)
+		return (0);
+	while (s1[i] == s2[i] && s1[i] && s2[i])
 		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
+	if (s1[i] == '\0' && s2[i] == '\0')
+		return (1);
+	else
+		return (0);
 }

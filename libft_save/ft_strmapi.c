@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/05 16:42:17 by kemartin          #+#    #+#             */
-/*   Updated: 2018/11/08 17:56:50 by kemartin         ###   ########.fr       */
+/*   Created: 2018/11/08 14:47:53 by kemartin          #+#    #+#             */
+/*   Updated: 2018/11/08 17:59:21 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strcpy(char *dest, const char *src)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	int		i;
+	unsigned int	i;
+	char			*str;
 
+	if (!(str = (char *)malloc(sizeof(char) * ft_strlen(s) + 1)))
+		return (NULL);
 	i = 0;
-	while (src[i])
+	while (s[i])
 	{
-		dest[i] = src[i];
+		str[i] = (*f)(i, s[i]);
 		i++;
 	}
-	dest[i] = '\0';
-	return (dest);
+	str[i] = '\0';
+	return (str);
 }

@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/05 16:42:17 by kemartin          #+#    #+#             */
-/*   Updated: 2018/11/08 17:56:50 by kemartin         ###   ########.fr       */
+/*   Created: 2018/11/08 17:14:33 by kemartin          #+#    #+#             */
+/*   Updated: 2018/11/08 18:05:31 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strcpy(char *dest, const char *src)
+char	*ft_strtrim(char const *s)
 {
-	int		i;
+	int start;
+	int len;
 
-	i = 0;
-	while (src[i])
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
+	start = 0;
+	while (s[start] == '\n' || s[start] == '\t' || s[start] == ' ')
+		start++;
+	len = ft_strlen((char *)s) - 1;
+	while (s[len] == '\n' || s[len] == '\t' || s[len] == ' ')
+		len--;
+	len = len - start + 1;
+	len = (len < 0) ? 0 : len;
+	return (ft_strsub(s, start, len));
 }

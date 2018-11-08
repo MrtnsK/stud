@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_strsub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/05 16:42:17 by kemartin          #+#    #+#             */
-/*   Updated: 2018/11/08 17:56:50 by kemartin         ###   ########.fr       */
+/*   Created: 2018/11/08 16:46:19 by kemartin          #+#    #+#             */
+/*   Updated: 2018/11/08 17:00:30 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strcpy(char *dest, const char *src)
+char	*ft_strsub(char const *s, unsigned int start, size_t len)
 {
-	int		i;
+	char		*str;
+	size_t		i;
 
+	if (!(str = ft_strnew(len)))
+		return (NULL);
 	i = 0;
-	while (src[i])
+	while (i < len)
 	{
-		dest[i] = src[i];
+		str[i] = s[start];
 		i++;
+		start++;
 	}
-	dest[i] = '\0';
-	return (dest);
+	str[i] = '\0';
+	return (str);
 }

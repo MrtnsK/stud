@@ -1,27 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/05 16:42:17 by kemartin          #+#    #+#             */
-/*   Updated: 2018/11/08 17:56:50 by kemartin         ###   ########.fr       */
+/*   Created: 2018/11/08 21:25:56 by kemartin          #+#    #+#             */
+/*   Updated: 2018/11/08 21:55:38 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strcpy(char *dest, const char *src)
+t_list	*ft_lstnew(void const *content, size_t content_size)
 {
-	int		i;
+	t_list	*nod;
 
-	i = 0;
-	while (src[i])
+	if (!(nod = (t_list *)malloc(sizeof(*nod))))
+		return (NULL);
+	if (content == NULL)
 	{
-		dest[i] = src[i];
-		i++;
+		nod->content = NULL;
+		nod->content_size = 0;
 	}
-	dest[i] = '\0';
-	return (dest);
+	else
+	{
+		if (!(nod->content = (malloc(content_size))))
+			return (NULL);
+		nod->content = ft_memcpy(nod->content, content, content_size);
+		nod->content_size = content_size;
+	}
+	nod->next = NULL;
+	return (nod);
 }

@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_strnequ.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/05 16:42:17 by kemartin          #+#    #+#             */
-/*   Updated: 2018/11/08 17:56:50 by kemartin         ###   ########.fr       */
+/*   Created: 2018/11/08 15:53:19 by kemartin          #+#    #+#             */
+/*   Updated: 2018/11/08 16:21:54 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strcpy(char *dest, const char *src)
+int		ft_strnequ(char const *s1, char const *s2, size_t n)
 {
-	int		i;
-
-	i = 0;
-	while (src[i])
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
+	if (n == 0)
+		return (1);
+	if (s1 == NULL && s2 == NULL)
+		return (0);
+	if ((s1 == NULL && s2 != NULL) || (s1 != NULL && s2 == NULL))
+		return (1);
+	return (ft_strncmp(s1, s2, n) ? 0 : 1);
 }
