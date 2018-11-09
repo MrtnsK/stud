@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 13:40:18 by kemartin          #+#    #+#             */
-/*   Updated: 2018/11/08 21:48:40 by kemartin         ###   ########.fr       */
+/*   Updated: 2018/11/09 13:19:23 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,9 @@ void				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(char const *s, int fd);
 void				ft_putendl_fd(char const *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
+t_list				*ft_lstnew(void const *content, size_t content_size);
+void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
 char				*ft_strrev(char *str);
 int					ft_nblen(long nb);
-t_list				*ft_lstnew(void const *content, size_t content_size);
 
 #endif

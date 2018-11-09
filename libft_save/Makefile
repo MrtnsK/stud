@@ -6,7 +6,7 @@
 #    By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/16 22:28:27 by kemartin          #+#    #+#              #
-#    Updated: 2018/11/08 21:25:46 by kemartin         ###   ########.fr        #
+#    Updated: 2018/11/09 13:18:06 by kemartin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,9 +66,10 @@ SRC =	ft_memset.c \
 		ft_putstr_fd.c \
 		ft_putendl_fd.c \
 		ft_putnbr_fd.c \
+		ft_lstnew.c \
+		ft_lstdelone.c \
 		ft_strrev.c \
-		ft_nblen.c \
-		ft_lstnew.c
+		ft_nblen.c 
 
 OBJ = $(SRC:.c=.o)
 
