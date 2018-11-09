@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 13:40:18 by kemartin          #+#    #+#             */
-/*   Updated: 2018/11/09 14:55:33 by kemartin         ###   ########.fr       */
+/*   Updated: 2018/11/09 15:38:29 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,10 @@ void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 char				*ft_strrev(char *str);
 int					ft_nblen(long nb);
+void				ft_sortedlstmerge(t_list **list1, t_list *list2);
+void				ft_revlist(t_list **list);
+void				ft_lstmerge(t_list **list1, t_list *list2);
+void				ft_lstsort(t_list **list);
+int					ft_lstsize(t_list *list);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/16 22:28:27 by kemartin          #+#    #+#              #
-#    Updated: 2018/11/09 14:15:30 by kemartin         ###   ########.fr        #
+#    Updated: 2018/11/09 15:41:21 by kemartin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,7 +73,12 @@ SRC =	ft_memset.c \
 		ft_lstiter.c \
 		ft_lstmap.c \
 		ft_strrev.c \
-		ft_nblen.c 
+		ft_nblen.c \
+		ft_sortedlstmerge.c \
+		ft_revlst.c \
+		ft_lstmerge.c \
+		ft_lstsort.c \
+		ft_lstsize.c
 
 OBJ = $(SRC:.c=.o)
 
