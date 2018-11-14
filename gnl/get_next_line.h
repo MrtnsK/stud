@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 19:20:06 by kemartin          #+#    #+#             */
-/*   Updated: 2018/11/12 19:14:04 by kemartin         ###   ########.fr       */
+/*   Updated: 2018/11/14 19:14:45 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,13 @@
 # include <stdlib.h>
 # include "libft/libft.h"
 
-typedef struct	t_list
+typedef struct	s_file
 {
-	void		*content;
-	int			content_size;
-	t_list		*next;
-}				s_list;
+	char				*buf;
+	int					fd;
+	int					r;
+	struct s_file		*next;
+}				t_file;
 
 int				get_next_line(const int fd, char **line);
 
