@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 19:20:06 by kemartin          #+#    #+#             */
-/*   Updated: 2018/11/20 15:01:29 by kemartin         ###   ########.fr       */
+/*   Updated: 2018/11/20 15:17:13 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # define BUFF_SIZE 32
 # include <stdlib.h>
 # include "libft/includes/libft.h"
-
 
 typedef struct		s_file
 {
