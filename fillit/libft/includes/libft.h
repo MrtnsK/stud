@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 13:40:18 by kemartin          #+#    #+#             */
-/*   Updated: 2018/11/20 18:09:55 by kemartin         ###   ########.fr       */
+/*   Updated: 2018/11/15 17:52:52 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,6 @@ typedef struct		s_list
 	size_t			content_size;
 	struct s_list	*next;
 }					t_list;
-
-typedef struct		s_file
-{
-	int				fd;
-	char			*buf;
-	struct s_file	*next;
-}					t_file;
 
 void				*ft_memset(void *s, int c, size_t n);
 void				ft_bzero(void *s, size_t n);
@@ -98,6 +91,5 @@ void				ft_lstsort(t_list **list);
 int					ft_lstsize(t_list *list);
 t_list				*ft_lstat(t_list *node, unsigned int nbr);
 t_list				*ft_lstfind(t_list *node, void *data_ref);
-int					get_next_line(const int fd, char **line);
 
 #endif

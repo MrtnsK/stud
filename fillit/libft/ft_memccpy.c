@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/09 19:20:06 by kemartin          #+#    #+#             */
-/*   Updated: 2018/11/20 18:07:51 by kemartin         ###   ########.fr       */
+/*   Created: 2018/11/05 15:14:43 by kemartin          #+#    #+#             */
+/*   Updated: 2018/11/07 18:14:06 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# define BUFF_SIZE 32
-# include <stdlib.h>
-# include "libft/includes/libft.h"
-
-typedef struct		s_file
+void	*ft_memccpy(void *dest, const void *src, int c, size_t n)
 {
-	int				fd;
-	char			*buf;
-	struct s_file	*next;
-}					t_file;
+	size_t i;
 
-int					get_next_line(const int fd, char **line);
-
-#endif
+	i = 0;
+	while (i < (unsigned char)n)
+	{
+		((unsigned char *)dest)[i] = ((unsigned char *)src)[i];
+		if (((unsigned char *)src)[i] == (unsigned char)c)
+			return ((unsigned char *)(dest + i + 1));
+		i++;
+	}
+	return (NULL);
+}

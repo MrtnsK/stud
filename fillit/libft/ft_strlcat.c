@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/09 19:20:06 by kemartin          #+#    #+#             */
-/*   Updated: 2018/11/20 18:07:51 by kemartin         ###   ########.fr       */
+/*   Created: 2018/11/05 18:10:08 by kemartin          #+#    #+#             */
+/*   Updated: 2018/11/08 17:59:16 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# define BUFF_SIZE 32
-# include <stdlib.h>
-# include "libft/includes/libft.h"
-
-typedef struct		s_file
+size_t	ft_strlcat(char *dest, const char *src, size_t size)
 {
-	int				fd;
-	char			*buf;
-	struct s_file	*next;
-}					t_file;
+	size_t		i;
+	size_t		d_len;
+	size_t		s_len;
 
-int					get_next_line(const int fd, char **line);
-
-#endif
+	i = 0;
+	d_len = ft_strlen((char *)dest);
+	s_len = ft_strlen(src);
+	if (size <= d_len)
+		return (s_len + size);
+	while (dest[i] && i < size - 1)
+		i++;
+	while (*src && i < size - 1)
+		dest[i++] = *src++;
+	dest[i] = '\0';
+	return (d_len + s_len);
+}

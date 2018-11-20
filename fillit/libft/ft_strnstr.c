@@ -1,29 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/09 19:20:06 by kemartin          #+#    #+#             */
-/*   Updated: 2018/11/20 18:07:51 by kemartin         ###   ########.fr       */
+/*   Created: 2018/11/05 19:04:05 by kemartin          #+#    #+#             */
+/*   Updated: 2018/11/08 21:49:18 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# define BUFF_SIZE 32
-# include <stdlib.h>
-# include "libft/includes/libft.h"
-
-typedef struct		s_file
+char	*ft_strnstr(const char *str, const char *to_find, size_t l)
 {
-	int				fd;
-	char			*buf;
-	struct s_file	*next;
-}					t_file;
+	size_t i;
+	size_t j;
 
-int					get_next_line(const int fd, char **line);
-
-#endif
+	i = 0;
+	if (to_find[0] == '\0')
+		return ((char *)str);
+	while (str[i] && i < l)
+	{
+		j = 0;
+		while (str[i + j] == to_find[j] && (i + j) < l)
+		{
+			if (to_find[j + 1] == '\0')
+				return ((char *)(str + i));
+			j++;
+		}
+		i++;
+	}
+	return (NULL);
+}

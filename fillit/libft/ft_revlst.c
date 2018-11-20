@@ -1,29 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_revlst.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/09 19:20:06 by kemartin          #+#    #+#             */
-/*   Updated: 2018/11/20 18:07:51 by kemartin         ###   ########.fr       */
+/*   Created: 2018/09/13 20:37:03 by kemartin          #+#    #+#             */
+/*   Updated: 2018/11/09 15:47:06 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# define BUFF_SIZE 32
-# include <stdlib.h>
-# include "libft/includes/libft.h"
-
-typedef struct		s_file
+void	ft_revlst(t_list **list)
 {
-	int				fd;
-	char			*buf;
-	struct s_file	*next;
-}					t_file;
+	t_list *tmp1;
+	t_list *tmp2;
+	t_list *tmp3;
 
-int					get_next_line(const int fd, char **line);
-
-#endif
+	if (!(*list) || !(*list)->next)
+		return ;
+	tmp1 = (*list);
+	tmp2 = tmp1->next;
+	tmp3 = tmp2->next;
+	tmp1->next = NULL;
+	tmp2->next = tmp1;
+	while (tmp3)
+	{
+		tmp1 = tmp2;
+		tmp2 = tmp3;
+		tmp3 = tmp3->next;
+		tmp2->next = tmp1;
+	}
+	(*list) = tmp2;
+}

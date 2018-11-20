@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/09 19:20:06 by kemartin          #+#    #+#             */
-/*   Updated: 2018/11/20 18:07:51 by kemartin         ###   ########.fr       */
+/*   Created: 2018/11/08 14:28:08 by kemartin          #+#    #+#             */
+/*   Updated: 2018/11/09 15:02:43 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# define BUFF_SIZE 32
-# include <stdlib.h>
-# include "libft/includes/libft.h"
-
-typedef struct		s_file
+char	*ft_strmap(char const *s, char (*f)(char))
 {
-	int				fd;
-	char			*buf;
-	struct s_file	*next;
-}					t_file;
+	unsigned int	i;
+	char			*str;
 
-int					get_next_line(const int fd, char **line);
-
-#endif
+	if (!s || !f)
+		return (NULL);
+	if (!(str = (char *)malloc(sizeof(char) * ft_strlen(s) + 1)))
+		return (NULL);
+	i = 0;
+	while (s[i])
+	{
+		str[i] = (*f)(s[i]);
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
+}

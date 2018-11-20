@@ -1,29 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/09 19:20:06 by kemartin          #+#    #+#             */
-/*   Updated: 2018/11/20 18:07:51 by kemartin         ###   ########.fr       */
+/*   Created: 2018/11/08 20:22:49 by kemartin          #+#    #+#             */
+/*   Updated: 2018/11/08 21:06:46 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# define BUFF_SIZE 32
-# include <stdlib.h>
-# include "libft/includes/libft.h"
-
-typedef struct		s_file
+char	*ft_itoa(int n)
 {
-	int				fd;
-	char			*buf;
-	struct s_file	*next;
-}					t_file;
+	char		*str;
+	int			i;
+	long		nb;
 
-int					get_next_line(const int fd, char **line);
-
-#endif
+	nb = (long)n;
+	if (!(str = ft_strnew(ft_nblen(n))))
+		return (NULL);
+	if (nb < 0)
+		nb *= -1;
+	i = 0;
+	while (nb != 0 || i == 0)
+	{
+		str[i] = (nb % 10) + '0';
+		nb /= 10;
+		i++;
+	}
+	if (n < 0)
+		str[i++] = '-';
+	str[i] = '\0';
+	return (ft_strrev(str));
+}
