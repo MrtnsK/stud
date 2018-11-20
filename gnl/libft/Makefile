@@ -6,13 +6,13 @@
 #    By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/16 22:28:27 by kemartin          #+#    #+#              #
-#    Updated: 2018/11/12 19:43:55 by kemartin         ###   ########.fr        #
+#    Updated: 2018/11/20 14:56:32 by kemartin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
-IDIR = libft.h
+IDIR = includes
 
 SRC =	ft_memset.c \
 		ft_bzero.c \
@@ -84,14 +84,14 @@ SRC =	ft_memset.c \
 
 OBJ = $(SRC:.c=.o)
 
-OPTS = -I $(IDIR)
+OPTS = -I$(IDIR)
 
 .PHONY: all clean fclean re
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-		@gcc -c $(OPTS) $(SRC) -Wall -Wextra -Werror
+$(NAME): $(SRC)
+		@gcc -Wall -Wextra -Werror -c $(SRC) $(OPTS)
 		@ar -rv $(NAME) $(OBJ)
 		@ranlib $(NAME)
 

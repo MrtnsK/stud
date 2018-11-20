@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 18:41:11 by kemartin          #+#    #+#             */
-/*   Updated: 2018/11/08 18:53:03 by kemartin         ###   ########.fr       */
+/*   Updated: 2018/11/16 17:24:16 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,5 @@
 
 void	ft_putstr(const char *str)
 {
-	int i;
-
-	i = 0;
-	while (str[i])
-		ft_putchar((char)str[i++]);
+	write(1, str, ft_strlen(str));
 }
