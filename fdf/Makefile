@@ -1,0 +1,77 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2018/11/26 15:37:46 by kemartin          #+#    #+#              #
+#    Updated: 2018/11/26 17:20:18 by kemartin         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+
+NAME	= fdf
+
+# src / obj files
+SRC		= main.c \
+ft_mlx_setup.c \
+ft_img_setup.c \
+ft_fill_pxl.c
+
+OBJ		= $(addprefix $(OBJDIR),$(SRC:.c=.o))
+
+# compiler
+CC		= gcc
+CFLAGS	= -Wall -Wextra -Werror -g
+
+# mlx library
+MLX		= ./minilibx/
+MLX_LIB	= $(addprefix $(MLX),mlx.a)
+MLX_INC	= -I ./minilibx
+MLX_LNK	= -L ./minilibx -l mlx -framework OpenGL -framework AppKit
+
+# ft library
+FT		= ./libft/
+FT_LIB	= $(addprefix $(FT),libft.a)
+FT_INC	= -I ./libft
+FT_LNK	= -L ./libft -l ft
+
+# directories
+SRCDIR	= ./src/
+INCDIR	= ./inc/
+OBJDIR	= ./obj/
+
+.PHONY: all, clean, fclean, re
+
+all: obj $(FT_LIB) $(MLX_LIB) $(NAME)
+
+obj:
+	@mkdir -p $(OBJDIR)
+
+$(OBJDIR)%.o:$(SRCDIR)%.c
+	@$(CC) $(CFLAGS) $(MLX_INC) $(FT_INC) -I $(INCDIR) -o $@ -c $<
+	@echo "Object done."
+
+$(FT_LIB):
+	@make -C $(FT)
+
+$(MLX_LIB):
+	@make -C $(MLX)
+
+$(NAME): $(OBJ)
+	@$(CC) $(OBJ) $(MLX_LNK) $(FT_LNK) -lm -o $(NAME)
+	@echo "Everything done."
+
+clean:
+	@rm -rf $(OBJDIR)
+	@make -C $(FT) clean
+	@make -C $(MLX) clean
+	@echo "Objects cleaned."
+
+fclean: clean
+	@rm -rf $(NAME)
+	@make -C $(FT) fclean
+	@echo "Everything cleaned."
+
+re: fclean all
