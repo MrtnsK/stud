@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/26 15:42:51 by kemartin          #+#    #+#             */
-/*   Updated: 2018/11/26 18:04:42 by kemartin         ###   ########.fr       */
+/*   Updated: 2018/11/27 15:12:07 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ int		main(void)
 		while (j <= 599)
 		{
 			if (j % 20 < 10)
-				ft_fill_pxl(mlx, i, j, i % 20 < 10 ? 0x2469FF : 0xFFFFFF);
+				ft_fill_pxl(mlx, i, j, 0xFFFFFF);
 			else
-				ft_fill_pxl(mlx, i, j, i % 20 < 10 ? 0xCD5C5C : 0x000000);
+				ft_fill_pxl(mlx, i, j, 0xCD5C5C);
 			j++;
 		}
 		i++;
