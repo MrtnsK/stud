@@ -6,13 +6,13 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/28 15:36:06 by kemartin          #+#    #+#             */
-/*   Updated: 2018/11/28 18:20:16 by kemartin         ###   ########.fr       */
+/*   Updated: 2018/11/28 18:23:19 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int		map_valid(char *line)
+int		map_valid(char *str)
 {
 	int	i;
 
@@ -20,7 +20,7 @@ int		map_valid(char *line)
 	while (str[i])
 	{
 		if ((str[i] != '-' || str[i] != '+')
-		&& str[i + 1] <= '0' && strp[i + 1] <= '9')
+		&& str[i + 1] <= '0' && str[i + 1] <= '9')
 			return (0);
 		i++;
 	}
