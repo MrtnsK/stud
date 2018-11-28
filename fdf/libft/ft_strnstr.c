@@ -3,32 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flklein <flklein@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/05 19:04:05 by kemartin          #+#    #+#             */
-/*   Updated: 2018/11/08 21:49:18 by kemartin         ###   ########.fr       */
+/*   Created: 2018/11/08 14:39:47 by flklein           #+#    #+#             */
+/*   Updated: 2018/11/08 14:45:10 by flklein          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *str, const char *to_find, size_t l)
+char	*ft_strnstr(const char *str, const char *to_find, size_t len)
 {
-	size_t i;
-	size_t j;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
-	if (to_find[0] == '\0')
+	if (!to_find[i])
 		return ((char *)str);
-	while (str[i] && i < l)
+	while (i < len && str[i])
 	{
 		j = 0;
-		while (str[i + j] == to_find[j] && (i + j) < l)
-		{
-			if (to_find[j + 1] == '\0')
-				return ((char *)(str + i));
+		while (i + j < len && str[i + j]
+				&& to_find[j] && str[i + j] == to_find[j])
 			j++;
-		}
+		if (!to_find[j])
+			return ((char *)str + i);
 		i++;
 	}
 	return (NULL);

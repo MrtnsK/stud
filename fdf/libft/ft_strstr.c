@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flklein <flklein@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/05 18:52:03 by kemartin          #+#    #+#             */
-/*   Updated: 2018/11/07 14:20:58 by kemartin         ###   ########.fr       */
+/*   Created: 2018/11/08 14:21:59 by flklein           #+#    #+#             */
+/*   Updated: 2018/11/08 14:35:29 by flklein          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 char	*ft_strstr(const char *str, const char *to_find)
 {
-	int i;
-	int j;
+	int		i;
+	int		j;
 
 	i = 0;
-	if (to_find[0] == '\0')
+	if (!to_find[i])
 		return ((char *)str);
 	while (str[i])
 	{
 		j = 0;
-		while (str[i + j] == to_find[j] && str[i + j] && to_find[j])
+		while (str[i + j] && to_find[j] && str[i + j] == to_find[j])
 			j++;
 		if (!to_find[j])
-			return ((char *)(str + i));
+			return ((char *)str + i);
 		i++;
 	}
 	return (NULL);

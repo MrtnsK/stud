@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flklein <flklein@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/26 15:42:51 by kemartin          #+#    #+#             */
-/*   Updated: 2018/11/27 15:12:07 by kemartin         ###   ########.fr       */
+/*   Created: 2018/11/24 12:23:42 by flklein           #+#    #+#             */
+/*   Updated: 2018/11/27 18:45:07 by flklein          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,20 @@
 int		main(void)
 {
 	t_mlx	*mlx;
-	int		i;
-	int		j;
+	t_coord	*coord;
 
-	i = 0;
-	j = 0;
-	mlx = ft_mlx_setup(800, 600);
+	if (!(mlx = ft_mlx_setup(1200, 800)))
+		return (0);
 	ft_img_setup(mlx);
-	while (i <= 799)
-	{
-		j = 0;
-		while (j <= 599)
-		{
-			if (j % 20 < 10)
-				ft_fill_pxl(mlx, i, j, 0xFFFFFF);
-			else
-				ft_fill_pxl(mlx, i, j, 0xCD5C5C);
-			j++;
-		}
-		i++;
-	}
+	if (!(coord = (t_coord *)malloc(sizeof(t_coord))))
+		return (0);
+	coord->x1 = 50;
+	coord->y1 = 50;
+	coord->x2 = 500;
+	coord->y2 = 250;
+	ft_line(mlx, coord, 0xFFFF00);
 	mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img, 0, 0);
+	mlx_key_hook(mlx->win, &ft_key, mlx);
 	mlx_loop(mlx->ptr);
 	return (0);
 }

@@ -3,21 +3,19 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+         #
+#    By: flklein <flklein@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2018/11/26 15:37:46 by kemartin          #+#    #+#              #
-#    Updated: 2018/11/26 17:20:18 by kemartin         ###   ########.fr        #
+#    Created: 2018/11/24 12:19:09 by flklein           #+#    #+#              #
+#    Updated: 2018/11/27 18:38:44 by flklein          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
-
 NAME	= fdf
 
 # src / obj files
 SRC		= main.c \
-ft_mlx_setup.c \
-ft_img_setup.c \
-ft_fill_pxl.c
+		  events.c \
+		  draw.c \
+		  setup.c
 
 OBJ		= $(addprefix $(OBJDIR),$(SRC:.c=.o))
 
@@ -34,7 +32,7 @@ MLX_LNK	= -L ./minilibx -l mlx -framework OpenGL -framework AppKit
 # ft library
 FT		= ./libft/
 FT_LIB	= $(addprefix $(FT),libft.a)
-FT_INC	= -I ./libft
+FT_INC	= -I ./libft/includes
 FT_LNK	= -L ./libft -l ft
 
 # directories
