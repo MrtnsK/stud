@@ -6,10 +6,11 @@
 #    By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/24 12:19:09 by flklein           #+#    #+#              #
-#    Updated: 2018/11/28 15:37:53 by kemartin         ###   ########.fr        #
+#    Updated: 2018/11/28 19:44:36 by kemartin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+NAME = fdf
 
 # src / obj files
 SRC		= main.c \

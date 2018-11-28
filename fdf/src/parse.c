@@ -6,57 +6,70 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/28 15:36:06 by kemartin          #+#    #+#             */
-/*   Updated: 2018/11/28 18:23:19 by kemartin         ###   ########.fr       */
+/*   Updated: 2018/11/28 20:40:58 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int		map_valid(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if ((str[i] != '-' || str[i] != '+')
-		&& str[i + 1] <= '0' && str[i + 1] <= '9')
-			return (0);
-		i++;
-	}
-}
-
-void	fill_map(char *line, int **map)
+int		check_map(char **map)
 {
 	int		i;
 	int		j;
-	i = ft_strlen(line);
-	if (!((*map) = (int *)malloc(sizeof(int) * i)))
-		return (0);
+
 	i = 0;
-	j = 0;
-	while(line[i])
+
+	while (map[i])
 	{
-		*map[j] = ft_atoi(line[i]);
-		j++;
+		j = 0;
+		while (map[i][j])
+		{
+			if (!ft_isdigit(map[i][j])
+			&& map[i][j] != '-' && map[i][j] != '+')
+				return (1);
+			j++;
+		}
 		i++;
 	}
+	return (0);
 }
 
-int		**ft_parse_file(int fd)
+int		fill_map(char *line, int **map)
+{
+	int		i;
+	char	**tmp;
+
+	tmp = ft_strsplit(line, ' ');
+	i = ft_strlen(line);
+	ft_strdel(&line);
+	if (!(*map = (int *)malloc(sizeof(int) * (i + 1))))
+		return (0);
+// probleme de malloc actuellement du coup j'ai peut etre fais de la merde partout
+	if (check_map(tmp) == 1)
+		return (ft_putstr_int("map is not valide\n", 1));
+	i = 0;
+	while(tmp[i])
+	{
+		*(map[i]) = ft_atoi((const char *)tmp[i]);
+		i++;
+	}
+	return (0);
+}
+
+int		ft_parse_file(int fd, int **map)
 {
 	char	*line;
-	int		r;
-	int		**map;
 	int		i;
 
 	if (fd < 0)
+		return (0);
+	i = 0;
+	map = NULL;
 	while (get_next_line(fd, &line) > 0)
 	{
-		if (map_valide(line) == 1)
-			return (ft_putstr_fd("map is not valide\n", 2));
-		fill_map(line, &(map[i]));
+		if (fill_map(line, &(map[i])) == 1)
+			return (1);
 		i++;
 	}
-	return (map);
+	return (0);
 }
