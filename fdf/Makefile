@@ -3,19 +3,20 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: flklein <flklein@student.42.fr>            +#+  +:+       +#+         #
+#    By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/24 12:19:09 by flklein           #+#    #+#              #
-#    Updated: 2018/11/27 18:38:44 by flklein          ###   ########.fr        #
+#    Updated: 2018/11/28 15:37:53 by kemartin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-NAME	= fdf
+
 
 # src / obj files
 SRC		= main.c \
 		  events.c \
 		  draw.c \
-		  setup.c
+		  setup.c \
+		  parse.c
 
 OBJ		= $(addprefix $(OBJDIR),$(SRC:.c=.o))
 
