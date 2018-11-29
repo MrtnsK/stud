@@ -6,66 +6,55 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/24 12:23:42 by flklein           #+#    #+#             */
-/*   Updated: 2018/11/28 20:19:07 by kemartin         ###   ########.fr       */
+/*   Updated: 2018/11/29 20:33:23 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int		usage_e(int ac)
+int		ft_usage(void)
 {
-	if (ac == 2)
-		return (0);
-	else
-	ft_putendl("usage : ./fdf <your_map>");
-	return (1);
-}
-
-void	printmap(int **map)
-{
-	int i;
-	int j;
-
-	i = 0;
-	while (i < 3)
-	{
-		j = 0;
-		while (j < 4)
-		{
-			ft_putnbr(map[i][j]);
-			ft_putchar(' ');
-			j++;
-		}
-		ft_putchar('\n');
-		i++;
-	}
+	ft_putendl("./fdf <map_file>");
+	return (0);
 }
 
 int		main(int ac, char **av)
 {
+	t_map	*map;
 	t_mlx	*mlx;
 	t_coord	*coord;
-	int		fd;
-	int		**map;
+	int		i;
+	int		j;
 
-	if (usage_e(ac) == 1)
+	if (ac != 2)
+		return (ft_usage());
+	if (!(map = ft_parse(av[1])))
 		return (0);
+	i = 0;
+	while (map->tab[i])
+	{
+		j = 0;
+		while (j < map->columns)
+		{
+			ft_putnbr(map->tab[i][j++]);
+			ft_putchar(' ');
+		}
+		ft_putchar('\n');
+		i++;
+	}
 	if (!(mlx = ft_mlx_setup(1200, 800)))
 		return (0);
 	ft_img_setup(mlx);
 	if (!(coord = (t_coord *)malloc(sizeof(t_coord))))
 		return (0);
-	coord->x1 = 200;
+	draw_map(map, coord, mlx);
+/*	coord->x1 = 500;
 	coord->y1 = 50;
 	coord->x2 = 500;
-	coord->y2 = 400;
-	fd = open(av[1], O_RDONLY);
-	map = NULL;
-	if (ft_parse_file(fd, map) == 1)
-		return (0);
-	printmap(map);
-	ft_line(mlx, coord, 0xFFFF00);
+	coord->y2 = 500;
+	ft_line(mlx, coord, 0xFFFF00);*/
 	mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img, 0, 0);
+	show_usage(mlx);
 	mlx_key_hook(mlx->win, &ft_key, mlx);
 	mlx_loop(mlx->ptr);
 	return (0);

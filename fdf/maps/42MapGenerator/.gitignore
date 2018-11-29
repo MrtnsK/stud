@@ -1,0 +1,5 @@
+.my*
+*~
+tmp/*
+.idea
+.DS_Store
