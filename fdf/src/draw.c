@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/27 00:07:49 by flklein           #+#    #+#             */
-/*   Updated: 2018/11/29 20:45:05 by kemartin         ###   ########.fr       */
+/*   Updated: 2018/11/30 18:20:58 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ void	draw_map(t_map	*map, t_coord *coord, t_mlx *mlx)
 	int ratio2;
 
 	x = 0;
-	y = 0;
 	ratio1 = 1200 / map->columns;
 	ratio2 = 800 / map->lines;
 	while (x < map->lines)
 	{
+		y = 0;
 		while(y < map->columns)
 		{
 			coord->x1 = x * ratio1;

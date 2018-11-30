@@ -1,0 +1,1 @@
+netstat -rn | grep default | sed q | cut -d U -f1 | rev | cut -c7- | rev

@@ -1,0 +1,2 @@
+ipconfig getifaddr en0
+arp -a
