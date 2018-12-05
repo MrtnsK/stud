@@ -3,14 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flklein <flklein@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 17:30:38 by flklein           #+#    #+#             */
-/*   Updated: 2018/11/29 19:18:33 by kemartin         ###   ########.fr       */
+/*   Updated: 2018/11/29 21:06:35 by flklein          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	ft_display_map(t_map *map)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	while (map->tab[i])
+	{
+		j = 0;
+		while (j < map->columns)
+		{
+			ft_putnbr(map->tab[i][j++]);
+			j < map->columns ? ft_putchar('\t') : 0;
+		}
+		ft_putchar('\n');
+		i++;
+	}
+}
 
 int		ft_count_values(char *str)
 {
@@ -29,22 +48,6 @@ int		ft_count_values(char *str)
 			i++;
 	}
 	return (nb);
-}
-
-int		check_map(char *map)
-{
-	int		i;
-
-	i = 0;
-	while (map[i])
-	{
-		if (!ft_isdigit(map[i]) || map[i] != '-'
-		|| map[i] != '+' || map[i] != ' ')
-			return (1);
-		i++;
-	}
-	printf("ok\n");
-	return (0);
 }
 
 t_map	*ft_parse(char *file)
@@ -69,7 +72,7 @@ t_map	*ft_parse(char *file)
 	if (!(map->tab = (int **)malloc(sizeof(int *) * (map->lines + 1))))
 		return (NULL);
 	i = 0;
-	while (get_next_line(fd2, &line) > 0 && check_map(line) == 1)
+	while (get_next_line(fd2, &line) > 0)
 		map->tab[i++] = ft_intsplitstr(line, " \t\n");
 	map->tab[i] = NULL;
 	close(fd);

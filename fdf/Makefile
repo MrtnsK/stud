@@ -3,13 +3,12 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+         #
+#    By: flklein <flklein@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/24 12:19:09 by flklein           #+#    #+#              #
-#    Updated: 2018/11/30 17:22:27 by kemartin         ###   ########.fr        #
+#    Updated: 2018/12/05 19:49:21 by flklein          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
 NAME	= fdf
 
 # src / obj files
@@ -17,13 +16,15 @@ SRC		= main.c \
 		  events.c \
 		  draw.c \
 		  setup.c \
-		  parse.c
+		  parse.c \
+		  display.c \
+		  panel.c
 
 OBJ		= $(addprefix $(OBJDIR),$(SRC:.c=.o))
 
 # compiler
 CC		= gcc
-CFLAGS	= -g -Ofast -flto -march=native -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror -g
 
 # mlx library
 MLX		= ./minilibx/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flklein <flklein@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/27 00:07:49 by flklein           #+#    #+#             */
-/*   Updated: 2018/11/30 18:20:58 by kemartin         ###   ########.fr       */
+/*   Updated: 2018/12/05 18:29:57 by flklein          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,57 +14,36 @@
 
 void	ft_fill_pixel(t_mlx *mlx, int x, int y, int color)
 {
-	mlx->data[x + mlx->width * y] = color;
+	if (x >= 0 && y >= 0 && x < mlx->width && y < mlx->height)
+		mlx->str[x + mlx->width * y] = color;
 }
 
-void	ft_line(t_mlx *mlx, t_coord *coord, int color)
+void	ft_line(t_mlx *mlx, t_coord *c1, t_coord *c2)
 {
-	int		dx;
-	int		dy;
-	int		e;
+	int		lenght;
+	double	dx;
+	double	dy;
+	double	x;
+	double	y;
+	int		i;
+	double	mix;
 
-	e = coord->x2 - coord->x1;
-	dx = e * 2;
-	dy = (coord->y2 - coord->y1) * 2;
-	while (coord->x1 <= coord->x2)
+	if (ft_abs(c2->x - c1->x) >= ft_abs(c2->y - c1->y))
+		lenght =  ft_abs(c2->x - c1->x);
+	else
+		lenght = ft_abs(c2->y - c1->y);
+	dx = (c2->x - c1->x) / lenght;
+	dy = (c2->y - c1->y) / lenght;
+	x = c1->x + 0.5;
+	y = c1->y + 0.5;
+	i = 1;
+	while (i <= lenght && x < mlx->width && y < mlx->height)
 	{
-		ft_fill_pixel(mlx, coord->x1, coord->y1, color);
-		coord->x1++;
-		if ((e -= dy) <= 0)
-		{
-			coord->y1++;
-			e += dx;
-		}
-	}
-}
-
-void	draw_map(t_map	*map, t_coord *coord, t_mlx *mlx)
-{
-	int	x;
-	int	y;
-	int ratio1;
-	int ratio2;
-
-	x = 0;
-	ratio1 = 1200 / map->columns;
-	ratio2 = 800 / map->lines;
-	while (x < map->lines)
-	{
-		y = 0;
-		while(y < map->columns)
-		{
-			coord->x1 = x * ratio1;
-			coord->y1 = y * ratio1;
-			coord->x2 = (x + 1) *ratio2;
-			coord->y2 = y * ratio2;
-			ft_line(mlx, coord, 0xFFFFFF);
-			coord->x1 = x * ratio1;
-			coord->y1 = y * ratio1;
-			coord->x2 = x * ratio2;
-			coord->y2 = (y + 1) * ratio2;
-			ft_line(mlx, coord, 0xFFFFFF);
-			y++;
-		}
-		x++;
+		mix = i / (double)lenght;
+		ft_fill_pixel(mlx, (int)x, (int)y,
+				c1->color * (1 - mix) + c2->color * mix);
+		x += dx;
+		y += dy;
+		i++;
 	}
 }

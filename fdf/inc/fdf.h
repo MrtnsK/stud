@@ -3,31 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flklein <flklein@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/24 12:20:46 by flklein           #+#    #+#             */
-/*   Updated: 2018/11/29 19:57:24 by kemartin         ###   ########.fr       */
+/*   Updated: 2018/12/05 21:10:13 by flklein          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-# define ESC 53
-
 # include "mlx.h"
 # include "libft.h"
 # include <stdlib.h>
 # include <fcntl.h>
-
-# include <stdio.h>
+# include <math.h>
 
 typedef struct	s_coord
 {
-	int		x1;
-	int		y1;
-	int		x2;
-	int		y2;
+	double	x;
+	double	y;
+	int		color;
 }				t_coord;
 
 typedef struct	s_map
@@ -44,16 +40,34 @@ typedef struct	s_mlx
 	int		width;
 	int		height;
 	void	*img;
-	int		*data;
+	int		*str;
+	int		x_unit;
+	int		y_unit;
+	int		z_unit;
+	int		top_shift;
+	int		left_shift;
+	int		panel_choice;
+	int		panel[5][5];
 }				t_mlx;
 
-int				ft_key(int key, void *mlx);
-t_mlx			*ft_mlx_setup(int width, int height);
+typedef struct	s_stock
+{
+	t_mlx	*mlx;
+	t_map	*map;
+}				t_stock;
+
+int				ft_count_values(char *str);
+int				ft_key(int key, t_stock *stock);
+int				ft_usage(void);
+int				main(int ac, char **av);
+t_map			*ft_parse(char *file);
+t_mlx			*ft_mlx_setup(t_map *map);
+void			ft_display_map(t_map *map);
 void			ft_fill_pixel(t_mlx *mlx, int x, int y, int color);
 void			ft_img_setup(t_mlx *mlx);
-void			ft_line(t_mlx *mlx, t_coord *coord, int color);
-t_map			*ft_parse(char *file);
-void			show_usage(t_mlx *mlx);
-void			draw_map(t_map	*map, t_coord *coord, t_mlx *mlx);
+void			ft_panel_setup(t_mlx *mlx);
+void			ft_line(t_mlx *mlx, t_coord *coord1, t_coord *coord2);
+void			ft_put_map_to_img(t_mlx *mlx, t_map *map);
+void			ft_clear_img(t_mlx *mlx);
 
 #endif
