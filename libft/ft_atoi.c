@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flklein <flklein@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/08 15:19:18 by flklein           #+#    #+#             */
-/*   Updated: 2018/11/15 17:02:34 by flklein          ###   ########.fr       */
+/*   Created: 2018/11/06 15:31:56 by kemartin          #+#    #+#             */
+/*   Updated: 2018/11/08 16:12:23 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,23 @@
 
 int		ft_atoi(const char *str)
 {
-	unsigned long long	nb;
-	int					sign;
+	int						i;
+	unsigned long long		res;
+	int						neg;
 
-	nb = 0;
-	sign = 1;
-	while ((*str >= 9 && *str <= 13) || *str == ' ')
-		str++;
-	if (*str == '-' || *str == '+')
-		sign *= (*(str++) == '-' ? -1 : 1);
-	while (*str >= '0' && *str <= '9')
-		nb = nb * 10 + *(str++) - '0';
-	if (nb > 9223372036854775807)
-		return (sign == 1 ? -1 : 0);
-	return (sign * nb);
+	i = 0;
+	res = 0;
+	neg = 1;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+		neg = (str[i++] == '-' ? -1 : 1);
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		res = (str[i] - '0') + (res * 10);
+		i++;
+	}
+	if (res > 9223372036854775807)
+		return ((neg == 1) ? -1 : 0);
+	return ((int)res * neg);
 }

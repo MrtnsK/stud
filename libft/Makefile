@@ -3,21 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: flklein <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2018/11/05 16:18:33 by flklein           #+#    #+#              #
-#    Updated: 2018/11/24 12:00:10 by flklein          ###   ########.fr        #
+#    Created: 2018/09/16 22:28:27 by kemartin          #+#    #+#              #
+#    Updated: 2018/12/11 14:34:20 by kemartin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
-IDIR = includes
-_INC = libft.h
-INC = $(patsubst %,$(IDIR)/%,$(_INC))
+IDIR = libft.h
 
-SDIR = .
-_SRC = ft_atoi.c \
+SRC =	ft_atoi.c \
 ft_bzero.c \
 ft_convert_base.c \
 ft_isalnum.c \
@@ -40,7 +37,6 @@ ft_memcpy.c \
 ft_memdel.c \
 ft_memmove.c \
 ft_memset.c \
-ft_nbrlen.c \
 ft_putchar.c \
 ft_putchar_fd.c \
 ft_putendl.c \
@@ -76,6 +72,7 @@ ft_strrchr.c \
 ft_strrev.c \
 ft_strsplit.c \
 ft_strsplitstr.c \
+ft_intsplitstr.c \
 ft_strstr.c \
 ft_strsub.c \
 ft_strtrim.c \
@@ -86,28 +83,32 @@ ft_toupper.c \
 get_next_line.c \
 ft_putstr_int.c \
 ft_abs.c \
-ft_sqrt_app.c
-SRC = $(patsubst %,$(SDIR)/%,$(_SRC))
+ft_sqrt_app.c \
+ft_strrev.c \
+ft_nblen.c \
+ft_sortedlstmerge.c \
+ft_revlst.c \
+ft_lstmerge.c \
+ft_lstsort.c \
+ft_lstsize.c
 
-OBJ = $(_SRC:.c=.o)
+OBJ = $(SRC:.c=.o)
 
-FLAGS = -Wall -Wextra -Werror
-OPTS = -I$(IDIR) -c
+OPTS = -I $(IDIR)
+
+.PHONY: all clean fclean re
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@gcc $(FLAGS) $(OPTS) $(SRC)
-	@ar rc $(NAME) $(OBJ)
-	@ranlib $(NAME)
-
-$(OBJ): $(SRC)
-	@gcc $(FLAGS) $(OPTS) $(SRC)
+		@gcc -c $(OPTS) $(SRC) -Wall -Wextra -Werror
+		@ar -rv $(NAME) $(OBJ)
+		@ranlib $(NAME)
 
 clean:
-	@/bin/rm -f $(OBJ)
+		@/bin/rm -f $(OBJ)
 
 fclean: clean
-	@/bin/rm -f $(NAME)
+		@/bin/rm -f $(NAME)
 
-re: fclean all
+re: clean all
