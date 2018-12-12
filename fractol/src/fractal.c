@@ -12,62 +12,72 @@
 
 #include "fractol.h"
 
-void	make_operation(t_stc *stc)
+void	draw_julia(t_mlx *mlx)
 {
-	stc->comp->c_r = stc->comp->x / stc->mlx->zoom + stc->comp->x1;
-	stc->comp->c_i = stc->comp->x / stc->mlx->zoom + stc->comp->y1;
-	stc->comp->z_r = 0;
-	stc->comp->z_i = 0;
-	while ((stc->comp->z_r * stc->comp->z_r
-	+ stc->comp->z_i * stc->comp->z_i) < 4
-	&& stc->comp->i < stc->comp->iter_max)
+	mlx->x = 0;
+	while (mlx->x++ < mlx->width)
 	{
-		stc->comp->tmp = stc->comp->z_r;
-		stc->comp->z_r = stc->comp->z_r * stc->comp->z_r
-		- stc->comp->z_i * stc->comp->z_i + stc->comp->c_r;
-		stc->comp->z_i = 2 * stc->comp->z_i * stc->comp->tmp + stc->comp->c_i;
-		stc->comp->i++;
+		mlx->y = 0;
+		while (mlx->y++ < mlx->height)
+			{
+				mlx->z_r = (mlx->x / mlx->zoom + mlx->x1) + mlx->movex;
+				mlx->z_i = (mlx->y / mlx->zoom + mlx->y1) + mlx->movey;
+				mlx->i = 0;
+				while ((mlx->z_r * mlx->z_r + mlx->z_i * mlx->z_i < 4) && (mlx->i < mlx->iter_max))
+				{
+					mlx->tmp = mlx->z_r;
+					mlx->z_r = mlx->z_r * mlx->z_r - mlx->z_i *	mlx->z_i + mlx->c_r;
+					mlx->z_i = 2 * mlx->z_i * mlx->tmp + mlx->c_i;
+					mlx->i++;
+				}
+				if (mlx->i == mlx->iter_max)
+					ft_fill_pixel(mlx, mlx->x, mlx->y, 0xFFFFFF);
+				else
+					ft_fill_pixel(mlx, mlx->x, mlx->y, mlx->i * ft_rgb_color(mlx));
+			}
 	}
 }
 
-void	draw_fractal(t_stc *stc)
+void	draw_mandelbrot(t_mlx *mlx)
 {
-	stc->comp->x = 0;
-	stc->comp->i = 0;
-	while (stc->comp->x < stc->mlx->height)
+	mlx->x = 0;
+	while (mlx->x++ < mlx->width)
 	{
-		stc->comp->y = 0;
-		while (stc->comp->y < stc->mlx->width)
-		{
-			make_operation(stc);
-	printf("ok\n");
-			if (stc->comp->i == stc->comp->iter_max)
+		mlx->y = 0;
+		while (mlx->y++ < mlx->height)
 			{
-				ft_fill_pixel(stc->mlx, stc->comp->x, stc->comp->y, 0xFFF4E0);
-				printf("itermax\n");
+				mlx->c_r = (mlx->x / mlx->zoom + mlx->x1) + mlx->movex;
+				mlx->c_i = (mlx->y / mlx->zoom + mlx->y1) + mlx->movey;
+				mlx->z_r = 0;
+				mlx->z_i = 0;
+				mlx->i = 0;
+				while ((mlx->z_r * mlx->z_r + mlx->z_i * mlx->z_i < 4) && (mlx->i < mlx->iter_max))
+				{
+					mlx->tmp = mlx->z_r;
+					mlx->z_r = mlx->z_r * mlx->z_r - mlx->z_i *	mlx->z_i + mlx->c_r;
+					mlx->z_i = 2 * mlx->z_i * mlx->tmp + mlx->c_i;
+					mlx->i++;
+				}
+				if (mlx->i == mlx->iter_max)
+					ft_fill_pixel(mlx, mlx->x, mlx->y, 0xFFFFFF);
+				else
+					ft_fill_pixel(mlx, mlx->x, mlx->y, mlx->i * ft_rgb_color(mlx));
 			}
-			else
-			{
-				ft_fill_pixel(stc->mlx, stc->comp->x, stc->comp->y,
-				stc->comp->i * ft_rgb_color(stc));
-				printf("iterpasmax\n");
-			}
-			printf("y = %d\n", stc->comp->y);
-			printf("x = %d\n", stc->comp->x);
-			stc->comp->y++;
-			stc->comp->i = 0;
-		}
-		stc->comp->x++;
 	}
 }
 
-void	ft_fractal(t_stc *stc)
+void	ft_fractal(t_mlx *mlx)
 {
-	if (stc->mlx->fractal == 1 || stc->mlx->fractal == 2)
+	if (mlx->fractal == 1)
 	{
-		stc->mlx->fractal == 1 ? init_julia(stc) : init_mandelbrot(stc);
-		draw_fractal(stc);
+		init_julia(mlx);
+		draw_julia(mlx);
 	}
-/*	else if (stc->mlx->fractal == 3)
-		draw_buddhabrot(stc);*/
+	else if (mlx->fractal == 2)
+	{
+		init_mandelbrot(mlx);
+		draw_mandelbrot(mlx);
+	}
+/*	else if (mlx->fractal == 3)
+		draw_buddhabrot(mlx);*/
 }

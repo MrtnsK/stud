@@ -6,7 +6,7 @@
 #    By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/11 14:21:57 by kemartin          #+#    #+#              #
-#    Updated: 2018/12/11 19:51:10 by kemartin         ###   ########.fr        #
+#    Updated: 2018/12/12 17:29:20 by kemartin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,11 +16,12 @@ SRC		= main.c \
 		  events.c \
 		  pixel.c \
 		  setup.c \
-		  fractal.c
+		  fractal.c \
+		  mouse.c
 
 OBJ		= $(addprefix $(OBJDIR),$(SRC:.c=.o))
 
-CC		= gcc
+CC		= gcc -Ofast -flto -march=native
 CFLAGS	= -Wall -Wextra -Werror
 
 MLX		= ./minilibx/
