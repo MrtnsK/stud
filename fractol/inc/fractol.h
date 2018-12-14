@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/24 12:20:46 by kemartin          #+#    #+#             */
-/*   Updated: 2018/12/12 20:02:12 by kemartin         ###   ########.fr       */
+/*   Updated: 2018/12/14 19:54:33 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int					ft_count_values(char *str);
 int					ft_key(int key, t_mlx *mlx);
 int					mouse_event(int x, int y, t_mlx *mlx);
 void				ft_zoommouse(int key, t_mlx *mlx);
+int					zoomwmouse(int key, int x, int y, t_mlx *mlx);
 int					ft_usage(void);
 int					main(int ac, char **av);
 t_mlx				*ft_mlx_setup(char *title);
