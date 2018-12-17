@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/11 15:09:53 by kemartin          #+#    #+#             */
-/*   Updated: 2018/12/12 19:57:17 by kemartin         ###   ########.fr       */
+/*   Updated: 2018/12/17 19:24:18 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ void	ft_tutorial(t_mlx *mlx)
 	mlx_string_put(mlx->ptr, mlx->win,
 	mlx->width - 300, 100, 0xAFB6b9, "[ or ]           fractal");
 	mlx_string_put(mlx->ptr, mlx->win,
-	mlx->width - 300, 125, 0xAFB6b9, "PAGE UP / DOWN   iteration");
+	mlx->width - 300, 125, 0xAFB6b9, "O / P            iteration");
 	mlx_string_put(mlx->ptr, mlx->win,
 	mlx->width - 300, 150, 0xAFB6b9, "ARROWS           move");
 	mlx_string_put(mlx->ptr, mlx->win,
 	mlx->width - 300, 175, 0xAFB6b9, "HOME / END       zoom");
 	mlx_string_put(mlx->ptr, mlx->win,
-	mlx->width - 300, 200, 0xAFB6b9, "NUMBERS          colors");
+	mlx->width - 300, 200, 0xAFB6b9, "l;',./           colors");
 }
 
 void	ft_resetorchange(int key, t_mlx *mlx)
@@ -40,7 +40,7 @@ void	ft_resetorchange(int key, t_mlx *mlx)
 	{
 		if (key == 30 && mlx->fractal > 1)
 			mlx->fractal -= 1;
-		if (key == 33 && mlx->fractal < 2)
+		if (key == 33 && mlx->fractal < 3)
 			mlx->fractal += 1;
 	}
 	if (key == 31 || key == 35)
@@ -58,13 +58,13 @@ void	variation_color(int key, t_mlx *mlx)
 		mlx->color_r += 10;
 	if (key == 43)
 		mlx->color_r -= 10;
-	if (key == 41)
-		mlx->color_b += 10;
-	if (key == 47)
-		mlx->color_b -= 10;
 	if (key == 39)
-		mlx->color_g += 10;
+		mlx->color_b += 10;
 	if (key == 44)
+		mlx->color_b -= 10;
+	if (key == 41)
+		mlx->color_g += 10;
+	if (key == 47)
 		mlx->color_g -= 10;
 }
 

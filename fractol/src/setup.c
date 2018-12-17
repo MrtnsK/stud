@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/11 15:09:42 by kemartin          #+#    #+#             */
-/*   Updated: 2018/12/12 19:56:29 by kemartin         ###   ########.fr       */
+/*   Updated: 2018/12/17 20:06:54 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		who(char *title)
 		return (1);
 	else if (ft_strequ(title, "mandelbrot"))
 		return (2);
-	else if (ft_strequ(title, "buddhabrot"))
+	else if (ft_strequ(title, "burningship"))
 		return (3);
 	return (0);
 }
@@ -51,7 +51,7 @@ t_mlx	*ft_mlx_setup(char *title)
 	if (!(mlx = (t_mlx *)malloc(sizeof(t_mlx))))
 		return (NULL);
 	if (!ft_strequ(title, "mandelbrot") && !ft_strequ(title, "julia")
-	&& !ft_strequ(title, "buddhabrot"))
+	&& !ft_strequ(title, "burningship"))
 		return (0);
 	mlx->ptr = mlx_init();
 	mlx->width = 1280;

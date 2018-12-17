@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 19:54:54 by kemartin          #+#    #+#             */
-/*   Updated: 2018/12/14 19:58:46 by kemartin         ###   ########.fr       */
+/*   Updated: 2018/12/17 20:11:06 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,15 +69,15 @@ void	draw_mandelbrot(t_mlx *mlx)
 	}
 }
 
-void	draw_buddhabrot(t_mlx *mlx)
+void	draw_burningship(t_mlx *mlx)
 {
 	while (mlx->x++ < mlx->width)
 	{
 		mlx->y = 0;
 		while (mlx->y++ < mlx->height)
 		{
-			mlx->c_r = (mlx->x1 / mlx->zoom + mlx->x2) + mlx->movex;
-			mlx->c_i = (mlx->y1 / mlx->zoom + mlx->y2) + mlx->movey;
+			mlx->c_r = (mlx->x / mlx->zoom + mlx->x1) + mlx->movex;
+			mlx->c_i = (mlx->y / mlx->zoom + mlx->y1) + mlx->movey;
 			mlx->z_r = 0;
 			mlx->z_i = 0;
 			mlx->i = 0;
@@ -86,7 +86,7 @@ void	draw_buddhabrot(t_mlx *mlx)
 			{
 				mlx->tmp = mlx->z_r;
 				mlx->z_r = mlx->z_r * mlx->z_r - mlx->z_i * mlx->z_i + mlx->c_r;
-				mlx->z_i = 2 * mlx->z_i * mlx->tmp + mlx->c_i;
+				mlx->z_i = 2 * fabs(mlx->z_i * mlx->tmp) + mlx->c_i;
 				mlx->i++;
 			}
 			if (mlx->i == mlx->iter_max)
@@ -115,9 +115,7 @@ void	ft_fractal(t_mlx *mlx)
 	}
 	else if (mlx->fractal == 3)
 	{
-		mlx->c_r = -1.25;
-		mlx->c_i = 0.0;
 		mlx->x = 0;
-		draw_buddhabrot(mlx);
+		draw_burningship(mlx);
 	}
 }

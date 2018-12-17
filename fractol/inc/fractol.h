@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/24 12:20:46 by kemartin          #+#    #+#             */
-/*   Updated: 2018/12/14 19:54:33 by kemartin         ###   ########.fr       */
+/*   Updated: 2018/12/17 19:59:46 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "mlx.h"
 # include "libft.h"
 # include <stdlib.h>
+# include <math.h>
 # include <pthread.h>
 
 typedef struct		s_mlx
