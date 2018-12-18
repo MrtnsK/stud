@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/24 12:20:46 by kemartin          #+#    #+#             */
-/*   Updated: 2018/12/18 14:56:26 by kemartin         ###   ########.fr       */
+/*   Updated: 2018/12/18 18:04:05 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,10 @@ void				init_fractal(t_mlx *mlx);
 void				*draw_burningship(void *thrv);
 void				*draw_julia(void *thrv);
 void				*draw_mandelbrot(void *thrv);
+void				*draw_thunder(void *thrv);
+void				*draw_tricorn(void *thrv);
+void				*draw_bubble(void *thrv);
+void				*draw_shell(void *thrv);
+void				*draw_plume(void *thrv);
 
 #endif

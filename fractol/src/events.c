@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/11 15:09:53 by kemartin          #+#    #+#             */
-/*   Updated: 2018/12/17 19:24:18 by kemartin         ###   ########.fr       */
+/*   Updated: 2018/12/18 17:28:09 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_resetorchange(int key, t_mlx *mlx)
 	{
 		if (key == 30 && mlx->fractal > 1)
 			mlx->fractal -= 1;
-		if (key == 33 && mlx->fractal < 3)
+		if (key == 33 && mlx->fractal < 8)
 			mlx->fractal += 1;
 	}
 	if (key == 31 || key == 35)
