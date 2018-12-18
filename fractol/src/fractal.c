@@ -6,116 +6,140 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 19:54:54 by kemartin          #+#    #+#             */
-/*   Updated: 2018/12/17 21:37:50 by kemartin         ###   ########.fr       */
+/*   Updated: 2018/12/18 15:02:27 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	draw_julia(t_mlx *mlx)
+void	*draw_julia(void *thrv)
 {
-	while (mlx->x++ < mlx->width)
+	t_thread	*t;
+	t_calc		c;
+	int			min;
+	int			max;
+	int			y;
+
+	t = (t_thread *)thrv;
+	c.c_r = -0.75 + t->mlx->cha;
+	c.c_i = -0.14 + t->mlx->cha;
+	min = t->id * t->mlx->width / THREADS;
+	max = (t->id + 1) * t->mlx->width / THREADS;
+	while (min++ < max)
 	{
-		mlx->y = 0;
-		while (mlx->y++ < mlx->height)
+		y = 0;
+		while (y++ < t->mlx->height)
 		{
-			mlx->z_r = (mlx->x / mlx->zoom + mlx->x1) + mlx->movex;
-			mlx->z_i = (mlx->y / mlx->zoom + mlx->y1) + mlx->movey;
-			mlx->i = 0;
-			while ((mlx->z_r * mlx->z_r + mlx->z_i * mlx->z_i < mlx->mult)
-			&& (mlx->i < mlx->iter_max))
+			c.z_r = (min / t->mlx->zoom + t->mlx->x1) + t->mlx->movex;
+			c.z_i = (y / t->mlx->zoom + t->mlx->y1) + t->mlx->movey;
+			c.i = 0;
+			while ((c.z_r * c.z_r + c.z_i * c.z_i < t->mlx->mult)
+			&& (c.i < t->mlx->iter_max))
 			{
-				mlx->tmp = mlx->z_r;
-				mlx->z_r = mlx->z_r * mlx->z_r - mlx->z_i
-				* mlx->z_i + mlx->c_r;
-				mlx->z_i = 2 * mlx->z_i * mlx->tmp + mlx->c_i;
-				mlx->i++;
+				c.tmp = c.z_r;
+				c.z_r = c.z_r * c.z_r - c.z_i
+				* c.z_i + c.c_r;
+				c.z_i = 2 * c.z_i * c.tmp + c.c_i;
+				c.i++;
 			}
-			if (mlx->i == mlx->iter_max)
-				ft_fill_pixel(mlx, mlx->x, mlx->y, 0xFFFFFF);
+			if (c.i == t->mlx->iter_max)
+				ft_fill_pixel(t->mlx, min, y, 0xFFFFFF);
 			else
-				ft_fill_pixel(mlx, mlx->x, mlx->y, mlx->i
-				* ft_rgb_color(mlx));
+				ft_fill_pixel(t->mlx, min, y, c.i
+				* ft_rgb_color(t->mlx));
 		}
 	}
+	pthread_exit(NULL);
+	return (NULL);
 }
 
-void	draw_mandelbrot(t_mlx *mlx)
+void	*draw_mandelbrot(void *thrv)
 {
-	while (mlx->x++ < mlx->width)
+	t_thread	*t;
+	t_calc		c;
+	int			min;
+	int			max;
+	int			y;
+
+	t = (t_thread *)thrv;
+	min = t->id * t->mlx->width / THREADS;
+	max = (t->id + 1) * t->mlx->width / THREADS;
+	while (min++ < max)
 	{
-		mlx->y = 0;
-		while (mlx->y++ < mlx->height)
+		y = 0;
+		while (y++ < t->mlx->height)
 		{
-			mlx->c_r = (mlx->x / mlx->zoom + mlx->x1) + mlx->movex;
-			mlx->c_i = (mlx->y / mlx->zoom + mlx->y1) + mlx->movey;
-			mlx->z_r = 0;
-			mlx->z_i = 0;
-			mlx->i = 0;
-			while ((mlx->z_r * mlx->z_r + mlx->z_i * mlx->z_i < mlx->mult)
-			&& (mlx->i < mlx->iter_max))
+			c.c_r = (min / t->mlx->zoom + t->mlx->x1) + t->mlx->movex;
+			c.c_i = (y / t->mlx->zoom + t->mlx->y1) + t->mlx->movey;
+			c.z_r = 0;
+			c.z_i = 0;
+			c.i = 0;
+			while ((c.z_r * c.z_r + c.z_i * c.z_i < t->mlx->mult)
+			&& (c.i < t->mlx->iter_max))
 			{
-				mlx->tmp = mlx->z_r;
-				mlx->z_r = mlx->z_r * mlx->z_r - mlx->z_i * mlx->z_i + mlx->c_r;
-				mlx->z_i = 2 * mlx->z_i * mlx->tmp + mlx->c_i;
-				mlx->i++;
+				c.tmp = c.z_r;
+				c.z_r = c.z_r * c.z_r - c.z_i * c.z_i + c.c_r;
+				c.z_i = 2 * c.z_i * c.tmp + c.c_i;
+				c.i++;
 			}
-			if (mlx->i == mlx->iter_max)
-				ft_fill_pixel(mlx, mlx->x, mlx->y, 0xFFFFFF);
+			if (c.i == t->mlx->iter_max)
+				ft_fill_pixel(t->mlx, min, y, 0xFFFFFF);
 			else
-				ft_fill_pixel(mlx, mlx->x, mlx->y, mlx->i
-				* ft_rgb_color(mlx));
+				ft_fill_pixel(t->mlx, min, y, c.i
+				* ft_rgb_color(t->mlx));
 		}
 	}
+	pthread_exit(NULL);
+	return (NULL);
 }
 
-void	draw_burningship(t_mlx *mlx)
+void	*draw_burningship(void *thrv)
 {
-	while (mlx->x++ < mlx->width)
+	t_thread	*t;
+	t_calc		c;
+	int			min;
+	int			max;
+	int			y;
+
+	t = (t_thread *)thrv;
+	min = t->id * t->mlx->width / THREADS;
+	max = (t->id + 1) * t->mlx->width / THREADS;
+	while (min++ < max)
 	{
-		mlx->y = 0;
-		while (mlx->y++ < mlx->height)
+		y = 0;
+		while (y++ < t->mlx->height)
 		{
-			mlx->c_r = (mlx->x / mlx->zoom + mlx->x1) + mlx->movex;
-			mlx->c_i = (mlx->y / mlx->zoom + mlx->y1) + mlx->movey;
-			mlx->z_r = 0;
-			mlx->z_i = 0;
-			mlx->i = 0;
-			while ((mlx->z_r * mlx->z_r + mlx->z_i * mlx->z_i < mlx->mult)
-			&& (mlx->i < mlx->iter_max))
+			c.c_r = (min / t->mlx->zoom + t->mlx->x1) + t->mlx->movex;
+			c.c_i = (y / t->mlx->zoom + t->mlx->y1) + t->mlx->movey;
+			c.z_r = 0;
+			c.z_i = 0;
+			c.i = 0;
+			while ((c.z_r * c.z_r + c.z_i * c.z_i < t->mlx->mult)
+			&& (c.i < t->mlx->iter_max))
 			{
-				mlx->tmp = mlx->z_r;
-				mlx->z_r = mlx->z_r * mlx->z_r - mlx->z_i * mlx->z_i + mlx->c_r;
-				mlx->z_i = 2 * fabs(mlx->z_i * mlx->tmp) + mlx->c_i;
-				mlx->i++;
+				c.tmp = c.z_r;
+				c.z_r = c.z_r * c.z_r - c.z_i * c.z_i + c.c_r;
+				c.z_i = 2 * fabs(c.z_i * c.tmp) + c.c_i;
+				c.i++;
 			}
-			if (mlx->i == mlx->iter_max)
-				ft_fill_pixel(mlx, mlx->x, mlx->y, 0xFFFFFF);
+			if (c.i == t->mlx->iter_max)
+				ft_fill_pixel(t->mlx, min, y, 0xFFFFFF);
 			else
-				ft_fill_pixel(mlx, mlx->x, mlx->y, mlx->i
-				* ft_rgb_color(mlx));
+				ft_fill_pixel(t->mlx, min, y, c.i
+				* ft_rgb_color(t->mlx));
 		}
 	}
+	pthread_exit(NULL);
+	return (NULL);
 }
 
 
 void	ft_fractal(t_mlx *mlx)
 {
 	if (mlx->fractal == 1)
-	{
-		mlx->c_r = -0.75 + mlx->cha;
-		mlx->c_i = -0.14 + mlx->cha;
-		mlx->x = 0;
-		draw_julia(mlx);
-	}
+		simple_multithread(mlx, draw_julia);
 	else if (mlx->fractal == 2)
-	{
-		mlx->x = 0;
-		draw_mandelbrot(mlx);
-	}
+		simple_multithread(mlx, draw_mandelbrot);
 	else if (mlx->fractal == 3)
-	{
-		mlx->x = 0;
-		draw_burningship(mlx);
-	}
+		simple_multithread(mlx, draw_burningship);
 }

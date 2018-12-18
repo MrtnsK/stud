@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 17:30:29 by kemartin          #+#    #+#             */
-/*   Updated: 2018/12/14 19:56:34 by kemartin         ###   ########.fr       */
+/*   Updated: 2018/12/18 14:58:58 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_zoommouse(int key, t_mlx *mlx)
 {
-	if (key == 115 && mlx->zoom < 1000000000)
+	if (key == 115)
 	{
 		mlx->zoom *= 1.2;
 		mlx->x1 = mlx->x1 + (mlx->oldmx - ((double)mlx->width) / 2) \
@@ -22,7 +22,7 @@ void	ft_zoommouse(int key, t_mlx *mlx)
 		mlx->y1 = mlx->y1 + (mlx->oldmy - ((double)mlx->height) / 2) \
 		/ mlx->zoom;
 	}
-	if (key == 119 && mlx->zoom > 2)
+	if (key == 119)
 	{
 		mlx->zoom *= 0.8;
 		mlx->x1 = mlx->x1 + (mlx->oldmx - ((double)mlx->width) / 2) \
