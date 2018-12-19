@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 15:17:05 by kemartin          #+#    #+#             */
-/*   Updated: 2018/12/18 18:03:57 by kemartin         ###   ########.fr       */
+/*   Updated: 2018/12/19 16:06:27 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,7 @@ void	*draw_thunder(void *thrv)
 			c.z_r = (min / t->mlx->zoom + t->mlx->x1) + t->mlx->movex;
 			c.z_i = (y / t->mlx->zoom + t->mlx->y1) + t->mlx->movey;
 			c.i = 0;
-			while ((c.z_r * c.z_r + c.z_i * c.z_i < t->mlx->mult)
-			&& (c.i < t->mlx->iter_max))
-			{
-				c.tmp = c.z_r;
-				c.z_r = c.z_r * c.z_r - c.z_i
-				* c.z_i + c.c_r;
-				c.z_i = 2 * c.z_i * c.tmp + c.c_i;
-				c.i++;
-			}
-			if (c.i == t->mlx->iter_max)
-				ft_fill_pixel(t->mlx, min, y, 0x000000);
-			else
-				ft_fill_pixel(t->mlx, min, y, c.i
-				* ft_rgb_color(t->mlx));
+			btsjm_helper(c, t, min, y);
 		}
 	}
 	pthread_exit(NULL);
@@ -74,19 +61,7 @@ void	*draw_tricorn(void *thrv)
 			c.z_r = 0;
 			c.z_i = 0;
 			c.i = 0;
-			while ((c.z_r * c.z_r + c.z_i * c.z_i < t->mlx->mult)
-			&& (c.i < t->mlx->iter_max))
-			{
-				c.tmp = c.z_r;
-				c.z_r = c.z_r * c.z_r - c.z_i * c.z_i + c.c_r;
-				c.z_i = -2 * c.z_i * c.tmp + c.c_i;
-				c.i++;
-			}
-			if (c.i == t->mlx->iter_max)
-				ft_fill_pixel(t->mlx, min, y, 0x000000);
-			else
-				ft_fill_pixel(t->mlx, min, y, c.i
-				* ft_rgb_color(t->mlx));
+			tricorn_helper(c, t, min, y);
 		}
 	}
 	pthread_exit(NULL);
@@ -114,20 +89,7 @@ void	*draw_bubble(void *thrv)
 			c.z_r = (min / t->mlx->zoom + t->mlx->x1) + t->mlx->movex;
 			c.z_i = (y / t->mlx->zoom + t->mlx->y1) + t->mlx->movey;
 			c.i = 0;
-			while ((c.z_r * c.z_r + c.z_i * c.z_i < t->mlx->mult)
-			&& (c.i < t->mlx->iter_max))
-			{
-				c.tmp = c.z_r;
-				c.z_r = c.z_r * c.z_r - c.z_i
-				* c.z_i + c.c_r;
-				c.z_i = 2 * c.z_i * c.tmp + c.c_i;
-				c.i++;
-			}
-			if (c.i == t->mlx->iter_max)
-				ft_fill_pixel(t->mlx, min, y, 0x000000);
-			else
-				ft_fill_pixel(t->mlx, min, y, c.i
-				* ft_rgb_color(t->mlx));
+			btsjm_helper(c, t, min, y);
 		}
 	}
 	pthread_exit(NULL);
@@ -155,20 +117,7 @@ void	*draw_shell(void *thrv)
 			c.z_r = (min / t->mlx->zoom + t->mlx->x1) + t->mlx->movex;
 			c.z_i = (y / t->mlx->zoom + t->mlx->y1) + t->mlx->movey;
 			c.i = 0;
-			while ((c.z_r * c.z_r + c.z_i * c.z_i < t->mlx->mult)
-			&& (c.i < t->mlx->iter_max))
-			{
-				c.tmp = c.z_r;
-				c.z_r = c.z_r * c.z_r - c.z_i
-				* c.z_i + c.c_r;
-				c.z_i = 2 * c.z_i * c.tmp + c.c_i;
-				c.i++;
-			}
-			if (c.i == t->mlx->iter_max)
-				ft_fill_pixel(t->mlx, min, y, 0x000000);
-			else
-				ft_fill_pixel(t->mlx, min, y, c.i
-				* ft_rgb_color(t->mlx));
+			btsjm_helper(c, t, min, y);
 		}
 	}
 	pthread_exit(NULL);
@@ -196,22 +145,9 @@ void	*draw_plume(void *thrv)
 			c.z_r = (min / t->mlx->zoom + t->mlx->x1) + t->mlx->movex;
 			c.z_i = (y / t->mlx->zoom + t->mlx->y1) + t->mlx->movey;
 			c.i = 0;
-			while ((c.z_r * c.z_r + c.z_i * c.z_i < t->mlx->mult)
-			&& (c.i < t->mlx->iter_max))
-			{
-				c.tmp = c.z_r;
-				c.z_r = c.z_r * c.z_r - c.z_i
-				* c.z_i + c.c_r;
-				c.z_i = 1 * c.z_i * c.tmp + c.c_i;
-				c.i++;
-			}
-			if (c.i == t->mlx->iter_max)
-				ft_fill_pixel(t->mlx, min, y, 0x000000);
-			else
-				ft_fill_pixel(t->mlx, min, y, c.i
-				* ft_rgb_color(t->mlx));
+			plume_helper(c, t, min, y);
 		}
 	}
 	pthread_exit(NULL);
 	return (NULL);
-	}
+}

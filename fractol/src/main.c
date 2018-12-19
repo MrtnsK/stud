@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/11 15:09:33 by kemartin          #+#    #+#             */
-/*   Updated: 2018/12/18 18:03:41 by kemartin         ###   ########.fr       */
+/*   Updated: 2018/12/19 15:00:51 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int		ft_usage(void)
 {
-	ft_putendl("usage: ./fractol < julia | mandelbrot | burningship | thunder | tricorn | bubble | shell | plume >");
+	ft_putstr("usage: ./fractol < julia | mandelbrot | burningship");
+	ft_putendl("| thunder | tricorn | bubble | shell | plume >");
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/11 15:09:42 by kemartin          #+#    #+#             */
-/*   Updated: 2018/12/18 18:08:39 by kemartin         ###   ########.fr       */
+/*   Updated: 2018/12/19 15:17:33 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	init_fractal(t_mlx *mlx)
 	mlx->swi = 0;
 	mlx->mult = 4;
 	mlx->iter_max = 100;
+	mlx->oldmx = mlx->width / 2;
+	mlx->oldmy = mlx->height / 2;
 	if (mlx->fractal == 8)
 	{
 		mlx->zoom = 1240;

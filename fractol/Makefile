@@ -6,7 +6,7 @@
 #    By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/11 14:21:57 by kemartin          #+#    #+#              #
-#    Updated: 2018/12/18 15:17:19 by kemartin         ###   ########.fr        #
+#    Updated: 2018/12/19 15:13:08 by kemartin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ SRC		= main.c \
 		  fractal.c \
 		  mouse.c \
 		  thread.c \
-		  extfractal.c
+		  extfractal.c \
+		  helper.c
 
 OBJ		= $(addprefix $(OBJDIR),$(SRC:.c=.o))
 

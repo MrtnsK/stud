@@ -6,21 +6,19 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/24 12:20:46 by kemartin          #+#    #+#             */
-/*   Updated: 2018/12/18 18:04:05 by kemartin         ###   ########.fr       */
+/*   Updated: 2018/12/19 16:08:57 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
-# define THREADS 8
 
+# define THREADS 8
 # include "mlx.h"
 # include "libft.h"
 # include <stdlib.h>
 # include <math.h>
 # include <pthread.h>
-
-#include <stdio.h>
 
 typedef struct		s_mlx
 {
@@ -66,31 +64,36 @@ typedef struct		s_thread
 	pthread_t		thr;
 }					t_thread;
 
-int					ft_choose_color(int alt, t_mlx *mlx);
 int					ft_close(void);
-int					ft_count_values(char *str);
 int					ft_key(int key, t_mlx *mlx);
-int					mouse_event(int x, int y, t_mlx *mlx);
-void				ft_zoommouse(int key, t_mlx *mlx);
-int					zoomwmouse(int key, int x, int y, t_mlx *mlx);
+int					ft_rgb_color(t_mlx *mlx);
 int					ft_usage(void);
 int					main(int ac, char **av);
+int					mouse_event(int x, int y, t_mlx *mlx);
+int					who(char *title);
+int					zoomwmouse(int key, int x, int y, t_mlx *mlx);
 t_mlx				*ft_mlx_setup(char *title);
-void				ft_fill_pixel(t_mlx *mlx, int x, int y, int color);
-void				ft_move(int key, t_mlx *mlx);
-void				ft_reset(int key, t_mlx *mlx);
-void				ft_tutorial(t_mlx *mlx);
-void				ft_fractal(t_mlx *mlx);
-int					ft_rgb_color(t_mlx *mlx);
-void				simple_multithread(t_mlx *mlx, void *function);
-void				init_fractal(t_mlx *mlx);
+void				*draw_bubble(void *thrv);
 void				*draw_burningship(void *thrv);
 void				*draw_julia(void *thrv);
 void				*draw_mandelbrot(void *thrv);
+void				*draw_plume(void *thrv);
+void				*draw_shell(void *thrv);
 void				*draw_thunder(void *thrv);
 void				*draw_tricorn(void *thrv);
-void				*draw_bubble(void *thrv);
-void				*draw_shell(void *thrv);
-void				*draw_plume(void *thrv);
+void				ft_fill_pixel(t_mlx *mlx, int x, int y, int color);
+void				ft_fractal(t_mlx *mlx);
+void				ft_move(int key, t_mlx *mlx);
+void				ft_resetorchange(int key, t_mlx *mlx);
+void				ft_tutorial(t_mlx *mlx);
+void				ft_zoommouse(int key, t_mlx *mlx);
+void				init_fractal(t_mlx *mlx);
+void				julia_move(int x, int y, t_mlx *mlx);
+void				simple_multithread(t_mlx *mlx, void *function);
+void				variation_color(int key, t_mlx *mlx);
+void				btsjm_helper(t_calc c, t_thread *t, int min, int y);
+void				plume_helper(t_calc c, t_thread *t, int min, int y);
+void				tricorn_helper(t_calc c, t_thread *t, int min, int y);
+void				burningship_helper(t_calc c, t_thread *t, int min, int y);
 
 #endif

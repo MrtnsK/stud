@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 13:40:18 by kemartin          #+#    #+#             */
-/*   Updated: 2018/12/11 19:48:04 by kemartin         ###   ########.fr       */
+/*   Updated: 2018/12/19 16:15:19 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,19 @@
 
 # define BUFF_SIZE 32
 
-typedef struct			s_list
+typedef struct	s_list
 {
 	void				*content;
 	size_t				content_size;
 	struct s_list		*next;
-}						t_list;
+}				t_list;
 
-typedef struct  		s_file
+typedef struct	s_file
 {
-        int				fd;
-        char			*data;
-        struct s_file	*next;
-}						t_file;
+	int					fd;
+	char				*data;
+	struct s_file		*next;
+}				t_file;
 
 char			**ft_strsplit(const char *str, char c);
 char			**ft_strsplitstr(char const *str, char const *set);
