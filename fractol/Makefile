@@ -6,7 +6,7 @@
 #    By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/11 14:21:57 by kemartin          #+#    #+#              #
-#    Updated: 2018/12/19 15:13:08 by kemartin         ###   ########.fr        #
+#    Updated: 2018/12/19 17:21:38 by kemartin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,7 @@ $(MLX_LIB):
 	@echo "MiniLibX ok."
 
 $(NAME): $(OBJ)
-	@$(CC) $(OBJ) $(MLX_LNK) $(FT_LNK) -lm -lpthread -o $(NAME) -fsanitize=address -g3
+	@$(CC) $(OBJ) $(MLX_LNK) $(FT_LNK) -lm -lpthread -o $(NAME)
 	@echo "Everything done."
 
 clean:
