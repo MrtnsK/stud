@@ -1,3 +1,2 @@
-pkill -u new > /dev/nul
-deluser new > /dev/nul
-echo "Done!"
+pkill -u new
+deluser new
