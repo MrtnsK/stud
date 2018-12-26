@@ -1,0 +1,13 @@
+COLUMNS=$(tput cols) 
+USER= whoami > /dev/null
+log="You are actually logged in with : "
+time="since "
+day="the "
+t=$(who -b | cut -c23- | cut -d ' ' -f2)
+d=$(who -b | cut -c23- | cut -d ' ' -f1)
+printf "\e[31m%*s\e[0m" $(((${#log}+$COLUMNS)/2)) "$log"
+printf "\e[36m%s\e[0m\n" "$USER"
+printf "\e[31m%*s\e[0m" $(((${#time}+$COLUMNS)/2)) "$time"
+printf "\e[36m%s\e[0m " "$t"
+printf "\e[31m%s\e[0m" "$day"
+printf "\e[36m%s\e[0m\n" "$d"
