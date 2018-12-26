@@ -1,1 +1,1 @@
-netstat -rn | grep default | sed q | cut -d U -f1 | rev | cut -c7- | rev
+netstat -rn | grep 'default' | sed q | awk '{print $2}'

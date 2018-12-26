@@ -1,2 +1,2 @@
-ipconfig getifaddr en0
-arp -a
+a- ifconfig | grep 'broadcast' | cut -d ' ' -f6
+b- arp -a

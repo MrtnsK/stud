@@ -1,1 +1,1 @@
-dpkg-query -l
+apt list --installed

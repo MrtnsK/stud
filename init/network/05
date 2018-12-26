@@ -1,1 +1,1 @@
-nslookup slash16.org | awk '/Address/{print $2}' | sed 1d
+nslookup slash16.org | awk '/Address/{print $2}' | cut -d '#' -f1 | sed q
