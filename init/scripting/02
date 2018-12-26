@@ -1,0 +1,3 @@
+pkill -u new
+deluser new
+echo "Done!"
