@@ -6,7 +6,7 @@
 #    By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/09/16 22:28:27 by kemartin          #+#    #+#              #
-#    Updated: 2019/02/15 19:37:33 by kemartin         ###   ########.fr        #
+#    Updated: 2019/02/19 16:46:09 by kemartin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,7 +93,8 @@ ft_sortedlstmerge.c \
 ft_revlst.c \
 ft_lstmerge.c \
 ft_lstsort.c \
-ft_lstsize.c
+ft_lstsize.c \
+ft_realloc.c
 
 SRC = $(patsubst %,$(SDIR)/%,$(_SRC))
 

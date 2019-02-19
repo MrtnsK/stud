@@ -6,7 +6,7 @@
 #    By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/07 15:54:25 by kemartin          #+#    #+#              #
-#    Updated: 2019/02/15 19:39:16 by kemartin         ###   ########.fr        #
+#    Updated: 2019/02/19 16:29:51 by kemartin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SRC		=	main.c
 OBJ		= $(addprefix $(OBJDIR),$(SRC:.c=.o))
 
 CC		= gcc
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror -g3
 FT		= ./libft/
 FT_LIB	= $(addprefix $(FT),libft.a)
 FT_INC	= -I ./libft
@@ -35,7 +35,7 @@ obj:
 	@mkdir -p $(OBJDIR)
 
 $(OBJDIR)%.o : $(SRCDIR)%.c
-	@$(CC) $(CFLAGS) $(FT_INC) -I $(INCDIR) -o $@ -c $<
+	@$(CC) $(CFLAGS) $(FT_INC) -I $(INCDIR) -o $@ -c $< -g3
 	@printf "\e[2K \e[32m[CC]\e[0m %-15s\r" "$<"
 
 $(FT_LIB) :

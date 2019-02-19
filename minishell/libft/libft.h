@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/05 13:40:18 by kemartin          #+#    #+#             */
-/*   Updated: 2018/12/19 16:15:19 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/02/19 16:40:14 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,6 @@ void			ft_striter(char *s, void (*f)(char *));
 void			ft_striteri(char *s, void (*f)(unsigned int, char *));
 void			ft_swap(int *a, int *b);
 void			ft_swapchar(char *a, char *b);
+void			*ft_realloc(void *ptr, size_t prev_size, size_t new_size);
 
 #endif

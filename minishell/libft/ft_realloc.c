@@ -1,37 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_realloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/15 19:27:01 by kemartin          #+#    #+#             */
-/*   Updated: 2019/02/19 17:24:58 by kemartin         ###   ########.fr       */
+/*   Created: 2019/02/19 16:39:12 by kemartin          #+#    #+#             */
+/*   Updated: 2019/02/19 16:39:16 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 
-#ifndef FT_LS_H
-# define FT_LS_H
-
-# include "libft.h"
-# include <libc.h>
-# include <errno.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <dirent.h>
-# include <pwd.h>
-# include <grp.h>
-# include <sys/xattr.h>
-# include <sys/acl.h>
-
-# define B_SIZE 1
-
-typedef struct	s_var
+void	*ft_realloc(void *ptr, size_t prev_size, size_t new_size)
 {
-	char			*name;
-	char			*content;
-	struct s_var	*next;
-}				t_var;
+	void	*new;
 
-#endif
+	if (!ptr)
+		return (NULL);
+	if (!(new = ft_memalloc(new_size)))
+	{
+		free(ptr);
+		return (NULL);
+	}
+	ft_memcpy(new, ptr, prev_size < new_size ? prev_size : new_size);
+	free(ptr);
+	return (new);
+}
