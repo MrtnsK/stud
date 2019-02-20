@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:11:19 by kemartin          #+#    #+#             */
-/*   Updated: 2019/02/20 17:33:40 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/02/20 18:46:01 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ctrlc(int sign)
 			return ;
 		if (!ft_strncmp("/Users/kemartin/", dir, 16))
 		{
-			write(1, "\033[33m", 5);
+			write(1, "\033[33m\033[100m", 11);
 			ft_putstr("~/");
 			ft_putstr(ft_strsub(ft_strdup(dir), 16, ft_strlen(dir) - 16));
 		}
