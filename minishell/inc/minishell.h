@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 19:27:01 by kemartin          #+#    #+#             */
-/*   Updated: 2019/02/26 17:26:26 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/02/26 19:49:16 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,9 @@ void			echo_function(char **tab);
 void			ctrlc(int sign);
 void			show_prompt(t_ms *m);
 void			silence_warning(int ac, char **av, char **env);
+void			set_env(char *env, t_ms *m);
+t_var			*ft_create_lst(char *name, char *data);
+void			ft_lst_push_back(t_var **var, char *name, char *data);
+void			show_env(t_ms *m, char **env);
 
 #endif
