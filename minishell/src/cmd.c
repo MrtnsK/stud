@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:11:52 by kemartin          #+#    #+#             */
-/*   Updated: 2019/02/20 18:41:42 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/02/26 15:54:22 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,6 @@ int		ft_strchrint(const char *str, int c)
 	return (0);
 }
 
-int		bin_cmd(t_ms *m, char **env)
-{
-	pid_t	pid;
-	char	**arg;
-
-	arg = ft_strsplit(m->cmd, ' ');
-	pid = fork();
-	if (pid == 0 && execve(arg[0], arg, env) < 0)
-		return (ft_putstr_int("minishell: command not found: ", -1)
-		+ ft_putstr_int(arg[0], 0) + ft_putstr_int("\n", 0));
-	wait(&pid);
-	free(*arg);
-	(void)m;
-	return (0);
-}
-
 int		exe_cmd(t_ms *m, char **env)
 {
 	if (m->cmd[5] && !ft_strncmp("/bin/", m->cmd, 5))
@@ -58,5 +42,7 @@ int		exe_cmd(t_ms *m, char **env)
 		exit_function(m);
 	if (m->cmd[4] && !ft_strncmp("cd ", m->cmd, 3))
 		cd_function(ft_strsub(m->cmd, 3, ft_strlen(m->cmd) - 3), m);
+	if (m->cmd[4] && !ft_strncmp("echo", m->cmd, 4))
+		echo_function(ft_strsplit(m->cmd, ' '));
 	return (0);
 }

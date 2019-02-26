@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 19:25:52 by kemartin          #+#    #+#             */
-/*   Updated: 2019/02/20 18:26:40 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/02/26 15:54:22 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int		main(int ac, char **av, char **env)
 		signal(SIGINT, ctrlc);
 		get_cmd(m);
 		if (exe_cmd(m, env) == -1)
-			break ;
+			break  ;
 		// free(m);
 	}
 	return (0);

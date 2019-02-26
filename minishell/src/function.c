@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:11:19 by kemartin          #+#    #+#             */
-/*   Updated: 2019/02/20 18:46:01 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/02/26 15:53:37 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,55 @@ void	cd_function(char *dir, t_ms *m)
 	}
 }
 
+int		bin_cmd(t_ms *m, char **env)
+{
+	pid_t	pid;
+	char	**arg;
+
+	arg = ft_strsplit(m->cmd, ' ');
+	pid = fork();
+	if (pid == 0 && execve(arg[0], arg, env) < 0)
+		return (ft_putstr_int("minishell: command not found: ", -1)
+		+ ft_putstr_int(arg[0], 0) + ft_putstr_int("\n", 0));
+	wait(&pid);
+	free(*arg);
+	(void)m;
+	return (0);
+}
+
 void	exit_function(t_ms *m)
 {
 	ft_putstr("== sortie \"exit\" ==\n");
 	(void)m;
 	// free(m);
 	exit(0);
+}
+
+void	echo_function(char **tab)
+{
+	int		i;
+	int		j;
+	int		swt;
+
+	j = 1;
+	swt = 0;
+	if (!ft_strncmp(tab[j], "-n", 2) && !tab[j][3])
+		swt = 2 * j++;
+	while (tab[j])
+	{
+		i = 0;
+		while(tab[j][i])
+		{
+			if (tab[j][i] != '"')
+				ft_putchar(tab[j][i]);
+			i++;
+		}
+		if (j > 1)
+			write(1, " ", 1);
+		j++;
+	}
+	if (!swt)
+			write(1, "\n", 1);
 }
 
 void	ctrlc(int sign)
@@ -51,7 +94,7 @@ void	ctrlc(int sign)
 		}
 		else
 			ft_putstr(dir);
-		write(1, " ", 1);
+		write(1, "\033[0m ", ft_strlen("\033[0m "));
 		write(1, "\033[95m$> ", ft_strlen("\033[95m$> "));
 		write(1, "\033[0m", ft_strlen("\033[0m"));
 		signal(SIGINT, ctrlc);
