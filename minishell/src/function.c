@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:11:19 by kemartin          #+#    #+#             */
-/*   Updated: 2019/02/26 15:53:37 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/02/26 16:35:04 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,9 @@ void	echo_function(char **tab)
 
 	j = 1;
 	swt = 0;
-	if (!ft_strncmp(tab[j], "-n", 2) && !tab[j][3])
-		swt = 2 * j++;
+	if (tab[j])
+		if (!ft_strncmp(tab[j], "-n", 2) && !tab[j][3])
+			swt = 2 * j++;
 	while (tab[j])
 	{
 		i = 0;
@@ -67,12 +68,11 @@ void	echo_function(char **tab)
 				ft_putchar(tab[j][i]);
 			i++;
 		}
-		if (j > 1)
+		if (j > 1 && !!tab[2])
 			write(1, " ", 1);
 		j++;
 	}
-	if (!swt)
-			write(1, "\n", 1);
+	!swt ? write(1, "\n", 1) : write(1, "\033[47m\033[30m%\033[0m", 15);
 }
 
 void	ctrlc(int sign)
