@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:11:52 by kemartin          #+#    #+#             */
-/*   Updated: 2019/02/26 15:54:22 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/02/26 17:26:19 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,18 @@ int		ft_strchrint(const char *str, int c)
 	return (0);
 }
 
+void	gohome(t_ms *m)
+{
+		char	*dir;
+
+		dir = ft_strdup("/Users/kemartin");
+		chdir(dir);
+		if (!(m->cur_dir = (char*)malloc(sizeof(char) * PATH_MAX)))
+			return ;
+		if (!(m->cur_dir = getcwd(dir, PATH_MAX)))
+			return ;	
+}
+
 int		exe_cmd(t_ms *m, char **env)
 {
 	if (m->cmd[5] && !ft_strncmp("/bin/", m->cmd, 5))
@@ -42,6 +54,8 @@ int		exe_cmd(t_ms *m, char **env)
 		exit_function(m);
 	if (m->cmd[4] && !ft_strncmp("cd ", m->cmd, 3))
 		cd_function(ft_strsub(m->cmd, 3, ft_strlen(m->cmd) - 3), m);
+	if (!ft_strcmp(m->cmd, "cd") || !ft_strcmp(m->cmd, "cd ~"))
+		gohome(m);
 	if (m->cmd[4] && !ft_strncmp("echo", m->cmd, 4))
 		echo_function(ft_strsplit(m->cmd, ' '));
 	return (0);

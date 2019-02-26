@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 19:25:52 by kemartin          #+#    #+#             */
-/*   Updated: 2019/02/26 15:54:22 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/02/26 16:43:21 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	show_prompt(t_ms *m)
 {
+	write(1, "\033[33m\033[100m", 11);
 	if (!ft_strncmp("/Users/kemartin/", m->cur_dir, 16))
 	{
-		write(1, "\033[33m\033[100m", 11);
 		ft_putstr("~/");
 		ft_putstr(ft_strsub(ft_strdup(m->cur_dir),\
 		16, ft_strlen(m->cur_dir) - 16));
