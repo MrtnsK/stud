@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:11:52 by kemartin          #+#    #+#             */
-/*   Updated: 2019/02/27 13:07:09 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/02/27 16:27:10 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,25 @@ int		var_exe_cmd(t_ms *m, char **env)
 		return (1);
 	return (0);
 }
+int		test_cmd(t_ms *m, char **env)
+{
+	pid_t	pid;
+	char	**arg;
+
+	arg = ft_strsplit(m->cmd, ' ');
+	pid = fork();
+	if (pid == 0 && execve(env[12], arg, env) < 0)
+		return (cmd_not_found(arg[12], -1));
+	wait(&pid);
+	free(*arg);
+	return (0);
+}
 
 int		exe_cmd(t_ms *m, char **env)
 {
-	if (!ft_strncmp("/bin/", m->cmd, 5) && m->cmd[5])
+	if (test_cmd(m, env) == -1)
+		return (-1);
+	else if (!ft_strncmp("/bin/", m->cmd, 5) && m->cmd[5])
 		return (bin_cmd(m, env));
 	else if (!ft_strcmp(m->cmd, "exit"))
 		exit_function(m);

@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:11:19 by kemartin          #+#    #+#             */
-/*   Updated: 2019/02/27 13:17:39 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/02/27 14:20:23 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	echo_function(char **tab)
 				ft_putchar(tab[j][i]);
 			i++;
 		}
-		if (j > 1 && !!tab[2])
+		if (j > 0 && !!tab[2])
 			write(1, " ", 1);
 		j++;
 	}
