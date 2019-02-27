@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:11:19 by kemartin          #+#    #+#             */
-/*   Updated: 2019/02/27 14:20:23 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/02/27 18:30:14 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		bin_cmd(t_ms *m, char **env)
 	arg = ft_strsplit(m->cmd, ' ');
 	pid = fork();
 	if (pid == 0 && execve(arg[0], arg, env) < 0)
-		return (cmd_not_found(arg[0], -1));
+		return (cmd_not_found(m->cmd, -1));
 	wait(&pid);
 	free(*arg);
 	return (0);
