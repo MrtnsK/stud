@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:11:52 by kemartin          #+#    #+#             */
-/*   Updated: 2019/02/26 19:49:29 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/02/27 10:44:43 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,23 @@ void	gohome(t_ms *m)
 
 // m->cmd[X] do invalid read
 
-int		exe_cmd(t_ms *m, char **env)
+void	var_exe_cmd(t_ms *m, char **env)
 {
+
 	if (!ft_strcmp("env", m->cmd))
 		show_env(m, env);
-	else if (m->cmd[5] && !ft_strncmp("/bin/", m->cmd, 5))
+	else if (m->cmd[8] ? !ft_strncmp("setenv ", m->cmd, 7)
+	: !ft_strcmp("setenv", m->cmd))
+		set_env(m->cmd, m);
+	else if (m->cmd[10] ? !ft_strncmp("unsetenv ", m->cmd, 9)
+	: !ft_strcmp("unsetenv", m->cmd))
+		unset_env(m);
+}
+
+int		exe_cmd(t_ms *m, char **env)
+{
+	var_exe_cmd(m, env);
+	if (m->cmd[5] && !ft_strncmp("/bin/", m->cmd, 5))
 		return (bin_cmd(m, env));
 	else if (!ft_strcmp(m->cmd, "exit"))
 		exit_function(m);
@@ -63,8 +75,5 @@ int		exe_cmd(t_ms *m, char **env)
 	else if (m->cmd[5] ? !ft_strncmp("echo ", m->cmd, 5)
 	: !ft_strcmp("echo", m->cmd))
 		echo_function(ft_strsplit(m->cmd, ' '));
-	else if (m->cmd[8] ? !ft_strncmp("setenv ", m->cmd, 7)
-	: !ft_strcmp("setenv", m->cmd))
-		set_env(m->cmd, m);
 	return (0);
 }
