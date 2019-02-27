@@ -6,7 +6,7 @@
 #    By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/07 15:54:25 by kemartin          #+#    #+#              #
-#    Updated: 2019/02/26 18:19:01 by kemartin         ###   ########.fr        #
+#    Updated: 2019/02/27 11:53:55 by kemartin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ NAME	= minishell
 SRC		=	main.c \
 			cmd.c \
 			function.c \
+			function2.c \
 			env.c \
 			lst.c
 

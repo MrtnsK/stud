@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 18:11:37 by kemartin          #+#    #+#             */
-/*   Updated: 2019/02/26 18:24:46 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/02/27 11:36:14 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,16 @@ void	ft_lst_push_back(t_var **var, char *name, char *data)
 	}
 	else
 		(*var) = ft_create_lst(name, data);
+}
+
+void	ft_lst_clear(t_var **var)
+{
+	if (*var)
+	{
+		free((*var)->name);
+		free((*var)->content);
+		ft_lst_clear(&(*var)->next);
+		free((*var));
+		*var = NULL;
+	}
 }

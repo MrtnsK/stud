@@ -6,24 +6,32 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 16:37:29 by kemartin          #+#    #+#             */
-/*   Updated: 2019/02/27 10:53:13 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/02/27 12:53:51 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	set_env(char *env, t_ms *m)
+int		spc_cnt(char *str)
 {
-	char	**tab;
 	int		i;
 	int		j;
 
 	i = 0;
 	j = 0;
-	while (env[i])
-		if (env[i++] == ' ')
+	while (str[i])
+		if (str[i++] == ' ')
 			j++;
-	if (j != 2 || i == 0)
+	return (j);
+}
+
+void	set_env(char *env, t_ms *m)
+{
+	char	**tab;
+	int		j;
+
+	j = spc_cnt(env);
+	if (j != 2 || ft_strlen(env) == 0)
 	{
 		write(1, "usage: setenv [name ...] [data ...]\n", 36);
 		return ;
@@ -35,22 +43,17 @@ void	set_env(char *env, t_ms *m)
 
 void	unset_env(t_ms *m)
 {
-	int		i;
 	int		j;
 	t_var	*af;
 	char	*del;
 
-	i = 0;
-	j = 0;
-	while (m->cmd[i])
-		if (m->cmd[i++] == ' ')
-			j++;
-	if (j != 1 || i == 0)
+	j = spc_cnt(m->cmd);
+	if (j != 1 || ft_strlen(m->cmd) == 0)
 	{
 		write(1, "usage: unsetenv [name ...]\n", 27);
 		return ;
 	}
-	del = ft_strdup(ft_strsub(m->cmd, 9, i - 9));
+	del = ft_strdup(ft_strsub(m->cmd, 9, ft_strlen(m->cmd) - 9));
 	if (!(af = m->var))
 		return ;
 	while (af)
@@ -66,13 +69,13 @@ void	unset_env(t_ms *m)
 	free(del);
 }
 
-void	show_env(t_ms *m,char **env)
+void	show_env(t_ms *m, char **env)
 {
 	t_var	*af;
 	int		i;
 
 	i = 0;
-	while(env[i])
+	while (env[i])
 	{
 		ft_putstr(&(*env[i++]));
 		ft_putchar('\n');
@@ -90,4 +93,10 @@ void	show_env(t_ms *m,char **env)
 		}
 		af = af->next;
 	}
+}
+
+void	env_i(t_ms *m, char **env)
+{
+	(void)env;
+	ft_lst_clear(&m->var);
 }

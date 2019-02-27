@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 19:25:52 by kemartin          #+#    #+#             */
-/*   Updated: 2019/02/26 19:45:41 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/02/27 13:14:03 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,9 @@ int		main(int ac, char **av, char **env)
 	silence_warning(ac, av, env);
 	if (!(m = (t_ms*)ft_memalloc(sizeof(t_ms))))
 		return (0);
-	if (!(m->cur_dir = (char*)ft_memalloc(sizeof(char) * PATH_MAX)))
+	if (!(m->cur_dir = (char*)malloc(sizeof(char) * PATH_MAX)))
 		return (0);
+	m->cur_dir = NULL;
 	if (!(m->cur_dir = getcwd(m->cur_dir, PATH_MAX)))
 		return (ft_putstr_int("== getcwd error ==", 1));
 	m->var = NULL;
@@ -53,8 +54,7 @@ int		main(int ac, char **av, char **env)
 		signal(SIGINT, ctrlc);
 		get_cmd(m);
 		if (exe_cmd(m, env) == -1)
-			break  ;
-		// free(m);
+			break ;
 	}
 	return (0);
 }
