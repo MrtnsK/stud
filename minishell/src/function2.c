@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 11:51:32 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/05 17:38:12 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/05 18:57:05 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	*is_this_home(char *may)
 	i = 0;
 	while (may[i] && may[i] != '~')
 		i++;
-	if ((may[i - 1] == ' ' && may[i - 1] == '\t') && may[i] == '~' && i + 1 == len)
+	if (may[i] == '~' && may[i + 1] == '\0')
 		return ("/Users/kemartin");
 	return (may);
 }
