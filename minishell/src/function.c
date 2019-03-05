@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:11:19 by kemartin          #+#    #+#             */
-/*   Updated: 2019/02/27 18:30:14 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/05 17:37:03 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		bin_cmd(t_ms *m, char **env)
 
 	arg = ft_strsplit(m->cmd, ' ');
 	pid = fork();
-	if (pid == 0 && execve(arg[0], arg, env) < 0)
+	if (pid == 0 && (execve(arg[0], arg, env) < 0 || execve(".", arg, env) < 0))
 		return (cmd_not_found(m->cmd, -1));
 	wait(&pid);
 	free(*arg);
@@ -57,7 +57,6 @@ void	exit_function(t_ms *m)
 
 void	echo_function(char **tab)
 {
-	int		i;
 	int		j;
 	int		swt;
 
@@ -68,14 +67,8 @@ void	echo_function(char **tab)
 			swt = 2 * j++;
 	while (tab[j])
 	{
-		i = 0;
-		while (tab[j][i])
-		{
-			if (tab[j][i] != '"')
-				ft_putchar(tab[j][i]);
-			i++;
-		}
-		if (j > 0 && !!tab[2])
+		ft_putstr(is_this_home(tab[j]));
+		if (j > 0 && !!tab[2] && tab[j + 1])
 			write(1, " ", 1);
 		j++;
 	}

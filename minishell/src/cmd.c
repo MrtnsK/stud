@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:11:52 by kemartin          #+#    #+#             */
-/*   Updated: 2019/02/27 18:30:48 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/05 16:36:45 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,6 @@ int		exe_cmd(t_ms *m, char **env)
 	else if (!ft_strcmp("pwd", m->cmd))
 		pwd_fun(m);
 	else if (var_exe_cmd(m, env) == 1)
-		return(bin_cmd(m, env));
+		return (bin_cmd(m, env));
 	return (0);
 }

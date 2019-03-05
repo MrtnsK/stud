@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 11:51:32 by kemartin          #+#    #+#             */
-/*   Updated: 2019/02/27 13:15:55 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/05 17:38:12 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,18 @@ void	ctrlc(int sign)
 		write(1, "\033[0m", ft_strlen("\033[0m"));
 		signal(SIGINT, ctrlc);
 	}
+}
+
+char	*is_this_home(char *may)
+{
+	int		i;
+	int		len;
+
+	len = ft_strlen(may);
+	i = 0;
+	while (may[i] && may[i] != '~')
+		i++;
+	if ((may[i - 1] == ' ' && may[i - 1] == '\t') && may[i] == '~' && i + 1 == len)
+		return ("/Users/kemartin");
+	return (may);
 }
