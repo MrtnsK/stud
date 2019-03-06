@@ -6,17 +6,17 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:11:19 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/05 17:37:03 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/06 15:29:19 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	cd_function(char *dir, t_ms *m)
+void	cd_function(char *dir, t_ms *m, char **env)
 {
-	if (opendir(dir))
+	if (opendir(env_find(dir, env, m)))
 	{
-		chdir(dir);
+		chdir(env_find(dir, env, m));
 		free(m->cur_dir);
 		if (!(m->cur_dir = (char*)malloc(sizeof(char) * PATH_MAX)))
 			return ;
@@ -26,7 +26,7 @@ void	cd_function(char *dir, t_ms *m)
 	else
 	{
 		write(1, "cd: no such file or directory: ", 32);
-		ft_putstr(dir);
+		ft_putstr(env_find(dir, env, m));
 		write(1, "\n", 1);
 	}
 }
@@ -55,10 +55,20 @@ void	exit_function(t_ms *m)
 	exit(0);
 }
 
-void	echo_function(char **tab)
+void	quote_case(char *str)
+{
+	int		i;
+
+	i = 1;
+	while (str[i + 1])
+		ft_putchar(str[i++]);
+}
+
+void	echo_function(char **tab, char **env, t_ms *m)
 {
 	int		j;
 	int		swt;
+	int		len;
 
 	j = 1;
 	swt = 0;
@@ -67,7 +77,12 @@ void	echo_function(char **tab)
 			swt = 2 * j++;
 	while (tab[j])
 	{
-		ft_putstr(is_this_home(tab[j]));
+		len = ft_strlen(tab[j]);
+		if ((tab[j][0] == '\'' || tab[j][0] == '"')
+		&& (tab[j][len - 1] == '\'' || tab[j][len - 1] == '"'))
+			quote_case(tab[j]);
+		else
+			ft_putstr(is_this_home(env_find(tab[j], env, m)));
 		if (j > 0 && !!tab[2] && tab[j + 1])
 			write(1, " ", 1);
 		j++;

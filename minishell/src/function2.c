@@ -6,29 +6,58 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 11:51:32 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/05 18:57:05 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/06 16:35:44 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	pwd_fun(t_ms *m)
+char	*lst_env(char *var, t_ms *m)
 {
-	write(1, m->cur_dir, ft_strlen(m->cur_dir));
-	write(1, "\n", 1);
+	t_var	*af;
+
+	if (!(af = m->var))
+		return (NULL);
+	while (af && af->name && af->content && ft_strcmp(var, af->name))
+		af = af->next;
+	if (af && af->name && af->content && !ft_strcmp(var, af->name))
+	{
+		free(var);
+		return (af->content);
+	}
+	free(var);
+	return ("");
 }
 
-void	gohome(t_ms *m)
+char	*env_find(char *str, char **env, t_ms *m)
 {
-	char	*dir;
+	int		i;
+	int		j;
+	char	*var;
 
-	dir = ft_strdup("/Users/kemartin");
-	chdir(dir);
-	free(m->cur_dir);
-	if (!(m->cur_dir = (char*)malloc(sizeof(char) * PATH_MAX)))
-		return ;
-	if (!(m->cur_dir = getcwd(dir, PATH_MAX)))
-		return ;
+	(void)m;
+	if (str[0] == '$' && str[1])
+	{
+		if (!(var = (char*)malloc(sizeof(char) * ft_strlen(str))))
+			return (NULL);
+		i = 1;
+		j = 0;
+		while (str[i])
+			var[j++] = str[i++];
+		var[j] = '\0';
+		j = 0;
+		i = ft_strlen(var);
+		while (env[j] && ft_strncmp(var, env[j], i))
+			j++;
+		if (env[j] && !ft_strncmp(var, env[j], i))
+		{
+			free(var);
+			return (env[j] + i + 1);
+		}
+		else if (!env[j])
+			return (lst_env(var, m));
+	}
+	return (str);
 }
 
 void	ctrlc(int sign)
@@ -55,18 +84,4 @@ void	ctrlc(int sign)
 		write(1, "\033[0m", ft_strlen("\033[0m"));
 		signal(SIGINT, ctrlc);
 	}
-}
-
-char	*is_this_home(char *may)
-{
-	int		i;
-	int		len;
-
-	len = ft_strlen(may);
-	i = 0;
-	while (may[i] && may[i] != '~')
-		i++;
-	if (may[i] == '~' && may[i + 1] == '\0')
-		return ("/Users/kemartin");
-	return (may);
 }

@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:11:52 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/05 18:58:37 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/06 16:44:28 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		var_exe_cmd(t_ms *m, char **env)
 		set_env(m->cmd, m);
 	else if (!ft_strcmp("setenv", m->cmd))
 		set_env(m->cmd, m);
-	else if (!ft_strncmp("unsetenv ", m->cmd, 9) && m->cmd[10])
+	else if (!ft_strncmp("unsetenv ", m->cmd, 9) && m->cmd[9])
 		unset_env(m);
 	else if (!ft_strcmp("unsetenv", m->cmd))
 		unset_env(m);
@@ -53,13 +53,13 @@ int		exe_cmd(t_ms *m, char **env)
 	if (!ft_strcmp(m->cmd, "exit"))
 		exit_function(m);
 	else if (!ft_strncmp("cd ", m->cmd, 3) && m->cmd[4])
-		cd_function(ft_strsub(m->cmd, 3, ft_strlen(m->cmd) - 3), m);
+		cd_function(ft_strsub(m->cmd, 3, ft_strlen(m->cmd) - 3), m, env);
 	else if (!ft_strcmp(m->cmd, "cd") || !ft_strcmp(m->cmd, "cd ~"))
 		gohome(m);
 	else if (!ft_strncmp("echo ", m->cmd, 5) && m->cmd[5])
-		echo_function(ft_strsplit(m->cmd, ' '));
+		echo_function(ft_strsplit(m->cmd, ' '), env, m);
 	else if (!ft_strcmp("echo", m->cmd))
-		echo_function(ft_strsplit(m->cmd, ' '));
+		echo_function(ft_strsplit(m->cmd, ' '), env, m);
 	else if (!ft_strcmp("pwd", m->cmd))
 		pwd_fun(m);
 	else if (var_exe_cmd(m, env) == 1)
