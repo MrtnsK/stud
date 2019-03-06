@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 16:37:29 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/06 17:01:45 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/06 18:56:15 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void	unset_env(t_ms *m)
 			{
 				ft_memdel((void**)&af->name);
 				ft_memdel((void**)&af->content);
+				af = af->next;
+				break ;
 			}
 		af = af->next;
 	}
