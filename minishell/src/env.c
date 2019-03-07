@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 16:37:29 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/06 18:56:15 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/07 14:26:28 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int		spc_cnt(char *str)
 void	set_env(char *env, t_ms *m)
 {
 	char	**tab;
+	t_var	*af;
 	int		j;
 
 	j = spc_cnt(env);
@@ -36,15 +37,26 @@ void	set_env(char *env, t_ms *m)
 		write(1, "usage: setenv [name ...] [data ...]\n", 36);
 		return ;
 	}
+	af = m->var;
 	tab = ft_strsplit(env, ' ');
+	while (af)
+	{
+		if (!ft_strcmp(af->name, tab[1]))
+		{
+			free(af->content);
+			af->content = ft_strdup(tab[2]);
+			return ;
+		}
+		af = af->next;
+	}
 	ft_lst_push_back(&m->var, tab[1], tab[2]);
-	(void)m;
 }
 
 void	unset_env(t_ms *m)
 {
 	int		j;
 	t_var	*af;
+	t_var	*prev;
 	char	*del;
 
 	j = spc_cnt(m->cmd);
@@ -56,31 +68,57 @@ void	unset_env(t_ms *m)
 	del = ft_strdup(ft_strsub(m->cmd, 9, ft_strlen(m->cmd) - 9));
 	if (!(af = m->var))
 		return ;
+	prev = af;
 	while (af)
 	{
 		if (af->name)
 			if (!ft_strcmp(af->name, del))
 			{
-				ft_memdel((void**)&af->name);
-				ft_memdel((void**)&af->content);
-				af = af->next;
+				if (!ft_strcmp(prev->name, af->name))
+				{
+					ft_memdel((void**)&m->var->name);
+					ft_memdel((void**)&m->var->content);
+					m->var = m->var->next;
+				}
+				else
+				{
+					prev->next = af->next;
+					ft_memdel((void**)&af->name);
+					ft_memdel((void**)&af->content);
+				}
 				break ;
 			}
+		prev = af;
 		af = af->next;
 	}
 	free(del);
 }
 
+void	init_env(char **env, t_ms *m)
+{
+	char	**tmp;
+	int		j;
+
+	j = 0;
+	while (env[j])
+	{
+		tmp = ft_strsplit(env[j], '=');
+		ft_lst_push_back(&m->var, tmp[0], tmp[1]);
+		free(tmp);
+		tmp = NULL;
+		j++;
+	}
+}
+
 void	show_env(t_ms *m, char **env)
 {
 	t_var	*af;
-	int		i;
-
-	i = 0;
-	while (env[i])
+	
+	if (!ft_strcmp("env -i", m->cmd))
 	{
-		ft_putstr(&(*env[i++]));
-		ft_putchar('\n');
+		ft_lst_clear(&m->var);
+		init_env(env, m);
+		return ;
 	}
 	if (!(af = m->var))
 		return ;
@@ -95,10 +133,4 @@ void	show_env(t_ms *m, char **env)
 		}
 		af = af->next;
 	}
-}
-
-void	env_i(t_ms *m, char **env)
-{
-	(void)env;
-	ft_lst_clear(&m->var);
 }

@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:11:52 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/06 16:44:28 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/07 14:13:26 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,9 @@ int		cmd_not_found(char *cmd, int ret)
 
 int		var_exe_cmd(t_ms *m, char **env)
 {
-	if (!ft_strcmp("env", m->cmd))
+	if (!ft_strcmp("env", m->cmd) || !ft_strcmp("env -i", m->cmd))
 		show_env(m, env);
-	else if (!ft_strcmp("env -i", m->cmd))
-		env_i(m, env);
-	else if (!ft_strncmp("setenv ", m->cmd, 7) && m->cmd[8])
+	else if (!ft_strncmp("setenv ", m->cmd, 7) && m->cmd[7])
 		set_env(m->cmd, m);
 	else if (!ft_strcmp("setenv", m->cmd))
 		set_env(m->cmd, m);

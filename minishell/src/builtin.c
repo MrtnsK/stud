@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:11:19 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/06 15:29:19 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/07 13:50:46 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,25 @@ void	cd_function(char *dir, t_ms *m, char **env)
 	}
 }
 
+int		path_cmd(char **env, char **arg)
+{
+	int		j;
+	char	**path;
+
+	j = 0;
+	while (env[j] && ft_strncmp(env[j], "PATH", 4))
+		j++;
+	path = ft_strsplit(env[j] + 5, ':');
+	j = 0;
+	while (path[j])
+	{
+		ft_putendl(path[j]);
+		execve(path[j], arg, env);
+		j++;
+	}
+	return (0);
+}
+
 int		bin_cmd(t_ms *m, char **env)
 {
 	pid_t	pid;
@@ -38,21 +57,12 @@ int		bin_cmd(t_ms *m, char **env)
 
 	arg = ft_strsplit(m->cmd, ' ');
 	pid = fork();
-	if (pid == 0 && (execve(arg[0], arg, env) < 0 || execve(".", arg, env) < 0))
+	if (pid == 0 && (path_cmd(env, arg) < 0 /*|| execve(arg[0], arg, env) < 0 */\
+	|| execve(".", arg, env) < 0))
 		return (cmd_not_found(m->cmd, -1));
 	wait(&pid);
 	free(*arg);
 	return (0);
-}
-
-void	exit_function(t_ms *m)
-{
-	ft_putstr("== sortie \"exit\" ==\n");
-	(void)m;
-	ft_lst_clear(&m->var);
-	free(m->cur_dir);
-	free(m->cmd);
-	exit(0);
 }
 
 void	quote_case(char *str)

@@ -6,11 +6,21 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:29:59 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/06 16:05:54 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/07 13:35:33 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	exit_function(t_ms *m)
+{
+	ft_putstr("== sortie \"exit\" ==\n");
+	(void)m;
+	ft_lst_clear(&m->var);
+	free(m->cur_dir);
+	free(m->cmd);
+	exit(0);
+}
 
 char	*is_this_home(char *may)
 {

@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 19:27:01 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/06 15:29:30 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/07 14:24:42 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int				spc_cnt(char *str);
 void			set_env(char *env, t_ms *m);
 void			unset_env(t_ms *m);
 void			show_env(t_ms *m, char **env);
-void			env_i(t_ms *m, char **env);
 void			cd_function(char *dir, t_ms *m, char **env);
 int				bin_cmd(t_ms *m, char **env);
 void			exit_function(t_ms *m);
@@ -62,5 +61,6 @@ void			show_prompt(t_ms *m);
 void			silence_warning(int ac, char **av, char **env);
 char			*is_this_home(char *may);
 char			*env_find(char *str, char **env, t_ms *m);
+void			init_env(char **env, t_ms *m);
 
 #endif

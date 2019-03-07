@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 11:51:32 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/06 16:35:44 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/07 14:03:31 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ char	*env_find(char *str, char **env, t_ms *m)
 	int		j;
 	char	*var;
 
-	(void)m;
 	if (str[0] == '$' && str[1])
 	{
 		if (!(var = (char*)malloc(sizeof(char) * ft_strlen(str))))
