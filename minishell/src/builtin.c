@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   function.c                                         :+:      :+:    :+:   */
+/*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:11:19 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/07 13:50:46 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/07 15:26:41 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,19 @@ int		path_cmd(char **env, char **arg)
 {
 	int		j;
 	char	**path;
+	char	*cpy;
 
 	j = 0;
 	while (env[j] && ft_strncmp(env[j], "PATH", 4))
 		j++;
 	path = ft_strsplit(env[j] + 5, ':');
 	j = 0;
+	cpy = ft_strdup(arg[0]);
 	while (path[j])
 	{
-		ft_putendl(path[j]);
-		execve(path[j], arg, env);
+		path[j] = reallocstr(path[j]);
+		arg[0] = arg_adjustment(path[j], cpy);
+		execve(arg[0], arg, env);
 		j++;
 	}
 	return (0);
@@ -57,21 +60,12 @@ int		bin_cmd(t_ms *m, char **env)
 
 	arg = ft_strsplit(m->cmd, ' ');
 	pid = fork();
-	if (pid == 0 && (path_cmd(env, arg) < 0 /*|| execve(arg[0], arg, env) < 0 */\
+	if (pid == 0 && (path_cmd(env, arg) < 0 || execve(arg[0], arg, env) < 0 \
 	|| execve(".", arg, env) < 0))
 		return (cmd_not_found(m->cmd, -1));
 	wait(&pid);
 	free(*arg);
 	return (0);
-}
-
-void	quote_case(char *str)
-{
-	int		i;
-
-	i = 1;
-	while (str[i + 1])
-		ft_putchar(str[i++]);
 }
 
 void	echo_function(char **tab, char **env, t_ms *m)

@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 19:27:01 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/07 14:24:42 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/07 15:19:15 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,18 @@ typedef struct	s_ms
 	t_var			*var;
 }				t_ms;
 
+void			cd_function(char *dir, t_ms *m, char **env);
+int				path_cmd(char **env, char **arg);
+int				bin_cmd(t_ms *m, char **env);
+void			echo_function(char **tab, char **env, t_ms *m);
+char			*lst_env(char *var, t_ms *m);
+char			*env_find(char *str, char **env, t_ms *m);
+void			ctrlc(int sign);
+void			exit_function(t_ms *m);
+char			*is_this_home(char *may);
+void			pwd_fun(t_ms *m);
+void			gohome(t_ms *m);
+void			quote_case(char *str);
 void			get_cmd(t_ms *m);
 int				cmd_not_found(char *cmd, int ret);
 int				var_exe_cmd(t_ms *m, char **env);
@@ -46,21 +58,15 @@ int				exe_cmd(t_ms *m, char **env);
 int				spc_cnt(char *str);
 void			set_env(char *env, t_ms *m);
 void			unset_env(t_ms *m);
+void			init_env(char **env, t_ms *m);
 void			show_env(t_ms *m, char **env);
-void			cd_function(char *dir, t_ms *m, char **env);
-int				bin_cmd(t_ms *m, char **env);
-void			exit_function(t_ms *m);
-void			echo_function(char **tab, char **env, t_ms *m);
-void			pwd_fun(t_ms *m);
-void			gohome(t_ms *m);
-void			ctrlc(int sign);
 t_var			*ft_create_lst(char *name, char *data);
 void			ft_lst_push_back(t_var **var, char *name, char *data);
 void			ft_lst_clear(t_var **var);
 void			show_prompt(t_ms *m);
 void			silence_warning(int ac, char **av, char **env);
-char			*is_this_home(char *may);
-char			*env_find(char *str, char **env, t_ms *m);
-void			init_env(char **env, t_ms *m);
+char			*reallocstr(char *str);
+char			*arg_adjustment(char *path, char *str);
+char			*reset_arg(char *old, char *arg);
 
 #endif

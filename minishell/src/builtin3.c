@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   function3.c                                        :+:      :+:    :+:   */
+/*   builtin3.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:29:59 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/07 13:35:33 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/07 14:35:54 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,13 @@ void	gohome(t_ms *m)
 		return ;
 	if (!(m->cur_dir = getcwd(dir, PATH_MAX)))
 		return ;
+}
+
+void	quote_case(char *str)
+{
+	int		i;
+
+	i = 1;
+	while (str[i + 1])
+		ft_putchar(str[i++]);
 }

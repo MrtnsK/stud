@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 19:25:52 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/07 14:26:05 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/07 14:39:27 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,7 @@ int		main(int ac, char **av, char **env)
 	if (!(m->cur_dir = getcwd(m->cur_dir, PATH_MAX)))
 		return (ft_putstr_int("== getcwd error ==", 1));
 	m->var = NULL;
-	ft_putstr("quoi?\n");
 	init_env(env, m);
-	ft_putstr("comment?\n");
 	while (1)
 	{
 		show_prompt(m);

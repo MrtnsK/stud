@@ -6,7 +6,7 @@
 #    By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/07 15:54:25 by kemartin          #+#    #+#              #
-#    Updated: 2019/03/07 14:07:53 by kemartin         ###   ########.fr        #
+#    Updated: 2019/03/07 14:50:51 by kemartin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ SRC		=	main.c \
 			builtin2.c \
 			builtin3.c \
 			env.c \
-			lst.c
+			lst.c \
+			realloc.c
 
 OBJ		= $(addprefix $(OBJDIR),$(SRC:.c=.o))
 
