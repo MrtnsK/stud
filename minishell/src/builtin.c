@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:11:19 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/07 15:26:41 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/07 17:14:59 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,20 @@ void	cd_function(char *dir, t_ms *m, char **env)
 	}
 }
 
-int		path_cmd(char **env, char **arg)
+int		path_cmd(t_ms *m, char **env, char **arg)
 {
 	int		j;
 	char	**path;
 	char	*cpy;
+	t_var	*af;
 
 	j = 0;
-	while (env[j] && ft_strncmp(env[j], "PATH", 4))
-		j++;
-	path = ft_strsplit(env[j] + 5, ':');
+	if (!(af = m->var))
+		return (0);
+	while (af && ft_strncmp(af->name, "PATH", 4))
+		af = af->next;
+	if (!af || !(path = ft_strsplit(af->content, ':')))
+		return (0);
 	j = 0;
 	cpy = ft_strdup(arg[0]);
 	while (path[j])
@@ -60,8 +64,9 @@ int		bin_cmd(t_ms *m, char **env)
 
 	arg = ft_strsplit(m->cmd, ' ');
 	pid = fork();
-	if (pid == 0 && (path_cmd(env, arg) < 0 || execve(arg[0], arg, env) < 0 \
-	|| execve(".", arg, env) < 0))
+
+	if (pid == 0 && execve(arg[0], arg, env) < 0
+	&& execve(".", arg, env) < 0 && path_cmd(m, env, arg) == 0)
 		return (cmd_not_found(m->cmd, -1));
 	wait(&pid);
 	free(*arg);
