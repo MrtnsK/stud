@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:29:59 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/12 16:08:13 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/12 18:29:59 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 void	exit_function(t_ms *m)
 {
-	ft_putstr("== sortie \"exit\" ==\n");
 	(void)m;
 	ft_lst_clear(&m->var);
-	free(m->cur_dir);
-	free(m->cmd);
+	ft_strdel(&m->cur_dir);
+	ft_strdel(&m->cmd);
 	exit(0);
 }
 

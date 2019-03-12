@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:11:52 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/12 16:53:53 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/12 19:45:45 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	get_cmd(t_ms *m)
 {
+	if (m->cmd)
+		ft_strdel(&m->cmd);
 	if (get_next_line(0, &m->cmd) == -1)
 		exit(ft_putstr_int("=== GNL error ===\n", 1));
 }
@@ -51,12 +53,13 @@ int		is_wp(char *str)
 	int		i;
 
 	i = 0;
-	while (str[i])
-	{
-		if (str[i] != ' ' || str[i] != '\t' || str[i] != '\n')
-			return (1);
-		i++;
-	}
+	if (str && str[i])
+		while (str[i])
+		{
+			if (str[i] != ' ' || str[i] != '\t' || str[i] != '\n')
+				return (1);
+			i++;
+		}
 	return (0);
 }
 

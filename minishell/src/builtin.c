@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:11:19 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/12 17:00:43 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/12 19:55:31 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,16 +64,23 @@ int		bin_cmd(t_ms *m, char **env)
 {
 	pid_t	pid;
 	char	**arg;
+	int		status;
 
 	arg = ft_strsplit(m->cmd, ' ');
 	pid = fork();
-	if (pid == 0 && execve(arg[0], arg, env) < 0
-	&& execve(".", arg, env) < 0 && path_cmd(m, env, arg) == 0)
+	signal(SIGINT, ctrlc);
+	
+	if (pid == 0)
 	{
-		ft_freetab(arg);
-		return (cmd_not_found(m->cmd, -1));
+		if (execve(arg[0], arg, env) < 0 && path_cmd(m, env, arg) == 0)
+		{
+			ft_freetab(arg);
+			return (cmd_not_found(m->cmd, -1));
+		}
 	}
-	wait(&pid);
+	else if (pid < 0)
+		return (ft_putstr_int("unable to fork process\n", -1));
+	wait(&status);
 	ft_freetab(arg);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 19:27:01 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/12 15:55:20 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/12 17:32:30 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct	s_ms
 {
 	char			*cmd;
 	char			*cur_dir;
+	char			**arg;
 	t_var			*var;
 }				t_ms;
 
