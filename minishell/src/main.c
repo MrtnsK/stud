@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 19:25:52 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/07 14:39:27 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/12 16:46:24 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,15 @@
 
 void	show_prompt(t_ms *m)
 {
+	char	*tmp;
+
 	write(1, "\033[33m\033[100m", 11);
 	if (!ft_strncmp("/Users/kemartin/", m->cur_dir, 16))
 	{
 		ft_putstr("~/");
-		ft_putstr(ft_strsub(ft_strdup(m->cur_dir),\
-		16, ft_strlen(m->cur_dir) - 16));
+		tmp = ft_strsub(m->cur_dir, 16, ft_strlen(m->cur_dir) - 16);
+		ft_putstr(tmp);
+		ft_strdel(&tmp);
 	}
 	else
 		ft_putstr(m->cur_dir);
@@ -44,10 +47,8 @@ int		main(int ac, char **av, char **env)
 		return (0);
 	if (!(m->cur_dir = (char*)malloc(sizeof(char) * PATH_MAX)))
 		return (0);
-	m->cur_dir = NULL;
 	if (!(m->cur_dir = getcwd(m->cur_dir, PATH_MAX)))
 		return (ft_putstr_int("== getcwd error ==", 1));
-	m->var = NULL;
 	init_env(env, m);
 	while (1)
 	{
@@ -57,5 +58,6 @@ int		main(int ac, char **av, char **env)
 		if (exe_cmd(m, env) == -1)
 			break ;
 	}
+	exit_function(m);
 	return (0);
 }

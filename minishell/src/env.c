@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 16:37:29 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/07 14:26:28 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/12 16:29:44 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,13 @@ void	set_env(char *env, t_ms *m)
 		{
 			free(af->content);
 			af->content = ft_strdup(tab[2]);
+			ft_freetab(tab);
 			return ;
 		}
 		af = af->next;
 	}
 	ft_lst_push_back(&m->var, tab[1], tab[2]);
+	ft_freetab(tab);
 }
 
 void	unset_env(t_ms *m)
@@ -65,7 +67,7 @@ void	unset_env(t_ms *m)
 		write(1, "usage: unsetenv [name ...]\n", 27);
 		return ;
 	}
-	del = ft_strdup(ft_strsub(m->cmd, 9, ft_strlen(m->cmd) - 9));
+	del = ft_strsub(m->cmd, 9, ft_strlen(m->cmd) - 9);
 	if (!(af = m->var))
 		return ;
 	prev = af;
@@ -76,15 +78,15 @@ void	unset_env(t_ms *m)
 			{
 				if (!ft_strcmp(prev->name, af->name))
 				{
-					ft_memdel((void**)&m->var->name);
-					ft_memdel((void**)&m->var->content);
+					ft_strdel(&m->var->name);
+					ft_strdel(&m->var->content);
 					m->var = m->var->next;
 				}
 				else
 				{
 					prev->next = af->next;
-					ft_memdel((void**)&af->name);
-					ft_memdel((void**)&af->content);
+					ft_strdel(&af->name);
+					ft_strdel(&af->content);
 				}
 				break ;
 			}
@@ -104,8 +106,7 @@ void	init_env(char **env, t_ms *m)
 	{
 		tmp = ft_strsplit(env[j], '=');
 		ft_lst_push_back(&m->var, tmp[0], tmp[1]);
-		free(tmp);
-		tmp = NULL;
+		ft_freetab(tmp);
 		j++;
 	}
 }

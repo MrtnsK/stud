@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:11:52 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/07 14:13:26 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/12 16:53:53 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,25 @@ int		var_exe_cmd(t_ms *m, char **env)
 	return (0);
 }
 
+int		is_wp(char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != ' ' || str[i] != '\t' || str[i] != '\n')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int		exe_cmd(t_ms *m, char **env)
 {
-	if (!ft_strcmp(m->cmd, "exit"))
+	if (is_wp(m->cmd) == 0)
+		return (0);
+	else if (!ft_strcmp(m->cmd, "exit"))
 		exit_function(m);
 	else if (!ft_strncmp("cd ", m->cmd, 3) && m->cmd[4])
 		cd_function(ft_strsub(m->cmd, 3, ft_strlen(m->cmd) - 3), m, env);

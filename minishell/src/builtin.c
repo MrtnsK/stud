@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:11:19 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/07 17:14:59 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/12 17:00:43 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	cd_function(char *dir, t_ms *m, char **env)
 	if (opendir(env_find(dir, env, m)))
 	{
 		chdir(env_find(dir, env, m));
-		free(m->cur_dir);
 		if (!(m->cur_dir = (char*)malloc(sizeof(char) * PATH_MAX)))
 			return ;
 		if (!(m->cur_dir = getcwd(dir, PATH_MAX)))
@@ -29,6 +28,7 @@ void	cd_function(char *dir, t_ms *m, char **env)
 		ft_putstr(env_find(dir, env, m));
 		write(1, "\n", 1);
 	}
+	free(dir);
 }
 
 int		path_cmd(t_ms *m, char **env, char **arg)
@@ -50,10 +50,13 @@ int		path_cmd(t_ms *m, char **env, char **arg)
 	while (path[j])
 	{
 		path[j] = reallocstr(path[j]);
+		ft_strdel(&arg[0]);
 		arg[0] = arg_adjustment(path[j], cpy);
 		execve(arg[0], arg, env);
 		j++;
 	}
+	ft_freetab(path);
+	ft_strdel(&cpy);
 	return (0);
 }
 
@@ -64,12 +67,14 @@ int		bin_cmd(t_ms *m, char **env)
 
 	arg = ft_strsplit(m->cmd, ' ');
 	pid = fork();
-
 	if (pid == 0 && execve(arg[0], arg, env) < 0
 	&& execve(".", arg, env) < 0 && path_cmd(m, env, arg) == 0)
+	{
+		ft_freetab(arg);
 		return (cmd_not_found(m->cmd, -1));
+	}
 	wait(&pid);
-	free(*arg);
+	ft_freetab(arg);
 	return (0);
 }
 

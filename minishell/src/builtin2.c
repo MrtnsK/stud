@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   function2.c                                        :+:      :+:    :+:   */
+/*   builtin2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 11:51:32 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/07 14:03:31 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/12 16:57:24 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ char	*env_find(char *str, char **env, t_ms *m)
 void	ctrlc(int sign)
 {
 	char	*dir;
+	char	*tmp;
 
 	if (sign == SIGINT)
 	{
@@ -74,7 +75,9 @@ void	ctrlc(int sign)
 		if (!ft_strncmp("/Users/kemartin/", dir, 16))
 		{
 			ft_putstr("~/");
-			ft_putstr(ft_strsub(ft_strdup(dir), 16, ft_strlen(dir) - 16));
+			tmp = ft_strsub(dir, 16, ft_strlen(dir) - 16);
+			ft_putstr(tmp);
+			free(tmp);
 		}
 		else
 			ft_putstr(dir);
@@ -82,5 +85,6 @@ void	ctrlc(int sign)
 		write(1, "\033[95m$> ", ft_strlen("\033[95m$> "));
 		write(1, "\033[0m", ft_strlen("\033[0m"));
 		signal(SIGINT, ctrlc);
+		free(dir);
 	}
 }

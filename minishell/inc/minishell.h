@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 19:27:01 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/07 16:03:35 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/12 15:55:20 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,6 @@ void			silence_warning(int ac, char **av, char **env);
 char			*reallocstr(char *str);
 char			*arg_adjustment(char *path, char *str);
 char			*reset_arg(char *old, char *arg);
+void			ft_freetab(char **tab);
 
 #endif

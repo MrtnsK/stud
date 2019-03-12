@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 14:50:41 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/07 15:25:29 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/12 16:37:35 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,3 +52,13 @@ char	*arg_adjustment(char *path, char *str)
 	return (new);
 }
 
+void	ft_freetab(char **tab)
+{
+	int		i;
+
+	i = 0;
+	while (tab[i])
+		ft_strdel(&tab[i++]);
+	free(tab);
+	tab = NULL;
+}
