@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 19:25:52 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/13 15:58:49 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/13 16:04:34 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,25 +40,6 @@ void	starting(void)
 |__   _/ __/  | | | | | | | | | | \\__ \\ | | |  __/ | |\n   \
 |_||_____| |_| |_| |_|_|_| |_|_|___/_| |_|\\___|_|_|\n ");
 }
-
-// void	test(t_ms *m)
-// {
-// 	t_var	*af;
-
-// 	if (!(af = m->var))
-// 		return ;
-// 	while (af)
-// 	{
-// 		if (af->name && af->content)
-// 		{
-// 			write(1, af->name, ft_strlen(af->name));
-// 			write(1, "=", 3);
-// 			write(1, af->content, ft_strlen(af->content));
-// 			write(1, "\n", 1);
-// 		}
-// 		af = af->next;
-// 	}
-// }
 
 int		main(int ac, char **av, char **env)
 {

@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 16:37:29 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/13 15:45:46 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/13 16:04:57 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	set_env(char *env, t_ms *m)
 	{
 		if (!ft_strcmp(af->name, tab[1]))
 		{
-			free(af->content);
+			ft_strdel(&af->content);
 			af->content = ft_strdup(tab[2]);
 			ft_freetab(tab);
 			return ;
