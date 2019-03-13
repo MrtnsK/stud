@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 19:27:01 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/12 17:32:30 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/13 11:18:29 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct	s_ms
 void			cd_function(char *dir, t_ms *m, char **env);
 int				path_cmd(t_ms *m, char **env, char **arg);
 int				bin_cmd(t_ms *m, char **env);
-void			echo_function(char **tab, char **env, t_ms *m);
+void			echo_function(char **env, t_ms *m);
 char			*lst_env(char *var, t_ms *m);
 char			*env_find(char *str, char **env, t_ms *m);
 void			ctrlc(int sign);

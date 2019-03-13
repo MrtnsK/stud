@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:29:59 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/12 18:29:59 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/13 10:11:07 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,17 @@ void	gohome(t_ms *m)
 {
 	char	*dir;
 
-	dir = ft_strdup("/Users/kemartin");
+	if(!(dir = ft_strdup("/Users/kemartin")))
+		return ;
 	chdir(dir);
-	free(m->cur_dir);
+	if (m->cur_dir)
+		free(m->cur_dir);
 	if (!(m->cur_dir = (char*)malloc(sizeof(char) * PATH_MAX)))
 		return ;
 	if (!(m->cur_dir = getcwd(dir, PATH_MAX)))
 		return ;
-	free(dir);
+	if (dir)
+		free(dir);
 }
 
 void	quote_case(char *str)

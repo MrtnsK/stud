@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:11:52 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/12 19:45:45 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/13 11:18:24 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,18 +65,23 @@ int		is_wp(char *str)
 
 int		exe_cmd(t_ms *m, char **env)
 {
+	char	*tmp;
+
 	if (is_wp(m->cmd) == 0)
 		return (0);
 	else if (!ft_strcmp(m->cmd, "exit"))
 		exit_function(m);
 	else if (!ft_strncmp("cd ", m->cmd, 3) && m->cmd[4])
-		cd_function(ft_strsub(m->cmd, 3, ft_strlen(m->cmd) - 3), m, env);
+	{
+		tmp = ft_strsub(m->cmd, 3, ft_strlen(m->cmd) - 3);
+		cd_function(tmp, m, env);
+		ft_strdel(&tmp);
+	}
 	else if (!ft_strcmp(m->cmd, "cd") || !ft_strcmp(m->cmd, "cd ~"))
 		gohome(m);
-	else if (!ft_strncmp("echo ", m->cmd, 5) && m->cmd[5])
-		echo_function(ft_strsplit(m->cmd, ' '), env, m);
-	else if (!ft_strcmp("echo", m->cmd))
-		echo_function(ft_strsplit(m->cmd, ' '), env, m);
+	else if ((!ft_strncmp("echo ", m->cmd, 5) && m->cmd[5])
+	|| !ft_strcmp("echo", m->cmd))
+		echo_function(env, m);
 	else if (!ft_strcmp("pwd", m->cmd))
 		pwd_fun(m);
 	else if (var_exe_cmd(m, env) == 1)

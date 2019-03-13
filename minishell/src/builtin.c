@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:11:19 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/12 19:55:31 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/13 11:19:02 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	cd_function(char *dir, t_ms *m, char **env)
 	if (opendir(env_find(dir, env, m)))
 	{
 		chdir(env_find(dir, env, m));
+		ft_strdel(&m->cur_dir);
 		if (!(m->cur_dir = (char*)malloc(sizeof(char) * PATH_MAX)))
 			return ;
 		if (!(m->cur_dir = getcwd(dir, PATH_MAX)))
@@ -28,7 +29,6 @@ void	cd_function(char *dir, t_ms *m, char **env)
 		ft_putstr(env_find(dir, env, m));
 		write(1, "\n", 1);
 	}
-	free(dir);
 }
 
 int		path_cmd(t_ms *m, char **env, char **arg)
@@ -85,14 +85,16 @@ int		bin_cmd(t_ms *m, char **env)
 	return (0);
 }
 
-void	echo_function(char **tab, char **env, t_ms *m)
+void	echo_function(char **env, t_ms *m)
 {
 	int		j;
 	int		swt;
 	int		len;
+	char	**tab;
 
 	j = 1;
 	swt = 0;
+	tab = ft_strsplit(m->cmd, ' ');
 	if (tab[j])
 		if (!ft_strncmp(tab[j], "-n", 2) && !tab[j][3])
 			swt = 2 * j++;
@@ -109,4 +111,5 @@ void	echo_function(char **tab, char **env, t_ms *m)
 		j++;
 	}
 	!swt ? write(1, "\n", 1) : write(1, "\033[47m\033[30m%\033[0m", 15);
+	ft_freetab(tab);
 }
