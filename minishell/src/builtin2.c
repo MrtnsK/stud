@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 11:51:32 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/12 16:57:24 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/13 14:55:40 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*env_find(char *str, char **env, t_ms *m)
 
 	if (str[0] == '$' && str[1])
 	{
-		if (!(var = (char*)malloc(sizeof(char) * ft_strlen(str))))
+		if (!(var = ft_strnew(ft_strlen(str) - 1)))
 			return (NULL);
 		i = 1;
 		j = 0;
@@ -59,32 +59,44 @@ char	*env_find(char *str, char **env, t_ms *m)
 	return (str);
 }
 
+void	show_env(t_ms *m, char **env)
+{
+	t_var	*af;
+
+	if (!ft_strcmp("env -i", m->cmd))
+	{
+		ft_lst_clear(&m->var);
+		init_env(env, m);
+		return ;
+	}
+	if (!(af = m->var))
+		return ;
+	while (af)
+	{
+		if (af->name && af->content)
+		{
+			write(1, af->name, ft_strlen(af->name));
+			write(1, "=", 3);
+			write(1, af->content, ft_strlen(af->content));
+			write(1, "\n", 1);
+		}
+		af = af->next;
+	}
+}
+
 void	ctrlc(int sign)
 {
-	char	*dir;
-	char	*tmp;
+	char	cwd[1025];
 
 	if (sign == SIGINT)
 	{
 		ft_putchar('\n');
-		if (!(dir = (char*)malloc(sizeof(char) * PATH_MAX)))
-			return ;
-		if (!(dir = getcwd(dir, PATH_MAX)))
-			return ;
-		write(1, "\033[33m\033[100m", 11);
-		if (!ft_strncmp("/Users/kemartin/", dir, 16))
-		{
-			ft_putstr("~/");
-			tmp = ft_strsub(dir, 16, ft_strlen(dir) - 16);
-			ft_putstr(tmp);
-			free(tmp);
-		}
-		else
-			ft_putstr(dir);
-		write(1, "\033[0m ", ft_strlen("\033[0m "));
-		write(1, "\033[95m$> ", ft_strlen("\033[95m$> "));
-		write(1, "\033[0m", ft_strlen("\033[0m"));
+		getcwd(cwd, 1024);
+		write(1, "\033[95m", 6);
+		ft_putstr(cwd);
+		write(1, "\033[0m", 4);
+		write(1, "\033[33m 💾  > ", 15);
+		write(1, "\033[0m", 4);
 		signal(SIGINT, ctrlc);
-		free(dir);
 	}
 }

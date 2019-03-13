@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:11:52 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/13 11:18:24 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/13 13:56:37 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,10 @@ int		exe_cmd(t_ms *m, char **env)
 		ft_strdel(&tmp);
 	}
 	else if (!ft_strcmp(m->cmd, "cd") || !ft_strcmp(m->cmd, "cd ~"))
-		gohome(m);
+		gohome();
 	else if ((!ft_strncmp("echo ", m->cmd, 5) && m->cmd[5])
 	|| !ft_strcmp("echo", m->cmd))
 		echo_function(env, m);
-	else if (!ft_strcmp("pwd", m->cmd))
-		pwd_fun(m);
 	else if (var_exe_cmd(m, env) == 1)
 		return (bin_cmd(m, env));
 	return (0);

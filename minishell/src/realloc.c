@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 14:50:41 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/12 16:37:35 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/13 15:44:40 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*arg_adjustment(char *path, char *str)
 	i = ft_strlen(path);
 	j = ft_strlen(str);
 	if (!(new = (char *)malloc(sizeof(char) * (i + j + 1))))
-		return NULL;
+		return (NULL);
 	i = 0;
 	j = 0;
 	while (path[i])

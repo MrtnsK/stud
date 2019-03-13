@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:11:19 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/13 11:19:02 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/13 15:50:00 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,12 @@
 
 void	cd_function(char *dir, t_ms *m, char **env)
 {
-	if (opendir(env_find(dir, env, m)))
+	DIR		*f;
+
+	if ((f = opendir(env_find(dir, env, m))))
 	{
+		closedir(f);
 		chdir(env_find(dir, env, m));
-		ft_strdel(&m->cur_dir);
-		if (!(m->cur_dir = (char*)malloc(sizeof(char) * PATH_MAX)))
-			return ;
-		if (!(m->cur_dir = getcwd(dir, PATH_MAX)))
-			return ;
 	}
 	else
 	{
@@ -69,7 +67,6 @@ int		bin_cmd(t_ms *m, char **env)
 	arg = ft_strsplit(m->cmd, ' ');
 	pid = fork();
 	signal(SIGINT, ctrlc);
-	
 	if (pid == 0)
 	{
 		if (execve(arg[0], arg, env) < 0 && path_cmd(m, env, arg) == 0)

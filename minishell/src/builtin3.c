@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:29:59 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/13 10:11:07 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/13 13:56:51 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	exit_function(t_ms *m)
 {
 	(void)m;
 	ft_lst_clear(&m->var);
-	ft_strdel(&m->cur_dir);
 	ft_strdel(&m->cmd);
 	exit(0);
 }
@@ -35,27 +34,9 @@ char	*is_this_home(char *may)
 	return (may);
 }
 
-void	pwd_fun(t_ms *m)
+void	gohome(void)
 {
-	write(1, m->cur_dir, ft_strlen(m->cur_dir));
-	write(1, "\n", 1);
-}
-
-void	gohome(t_ms *m)
-{
-	char	*dir;
-
-	if(!(dir = ft_strdup("/Users/kemartin")))
-		return ;
-	chdir(dir);
-	if (m->cur_dir)
-		free(m->cur_dir);
-	if (!(m->cur_dir = (char*)malloc(sizeof(char) * PATH_MAX)))
-		return ;
-	if (!(m->cur_dir = getcwd(dir, PATH_MAX)))
-		return ;
-	if (dir)
-		free(dir);
+	chdir("/Users/kemartin");
 }
 
 void	quote_case(char *str)

@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 16:37:29 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/12 17:40:43 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/13 15:45:46 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,23 +54,8 @@ void	set_env(char *env, t_ms *m)
 	ft_freetab(tab);
 }
 
-void	unset_env(t_ms *m)
+void	unset_env_while(t_var *af, t_var *prev, t_ms *m, char *del)
 {
-	int		j;
-	t_var	*af;
-	t_var	*prev;
-	char	*del;
-
-	j = spc_cnt(m->cmd);
-	if (j != 1 || ft_strlen(m->cmd) == 0)
-	{
-		write(1, "usage: unsetenv [name ...]\n", 27);
-		return ;
-	}
-	del = ft_strsub(m->cmd, 9, ft_strlen(m->cmd) - 9);
-	if (!(af = m->var))
-		return ;
-	prev = af;
 	while (af)
 	{
 		if (af->name)
@@ -93,6 +78,26 @@ void	unset_env(t_ms *m)
 		prev = af;
 		af = af->next;
 	}
+}
+
+void	unset_env(t_ms *m)
+{
+	int		j;
+	t_var	*af;
+	t_var	*prev;
+	char	*del;
+
+	j = spc_cnt(m->cmd);
+	if (j != 1 || ft_strlen(m->cmd) == 0)
+	{
+		write(1, "usage: unsetenv [name ...]\n", 27);
+		return ;
+	}
+	del = ft_strsub(m->cmd, 9, ft_strlen(m->cmd) - 9);
+	if (!(af = m->var))
+		return ;
+	prev = af;
+	unset_env_while(af, prev, m, del);
 	free(del);
 }
 
@@ -108,30 +113,5 @@ void	init_env(char **env, t_ms *m)
 		ft_lst_push_back(&m->var, tmp[0], tmp[1]);
 		ft_freetab(tmp);
 		j++;
-	}
-}
-
-void	show_env(t_ms *m, char **env)
-{
-	t_var	*af;
-	
-	if (!ft_strcmp("env -i", m->cmd))
-	{
-		ft_lst_clear(&m->var);
-		init_env(env, m);
-		return ;
-	}
-	if (!(af = m->var))
-		return ;
-	while (af)
-	{
-		if (af->name && af->content)
-		{
-			write(1, af->name, ft_strlen(af->name));
-			write(1, "=", 3);
-			write(1, af->content, ft_strlen(af->content));
-			write(1, "\n", 1);
-		}
-		af = af->next;
 	}
 }
