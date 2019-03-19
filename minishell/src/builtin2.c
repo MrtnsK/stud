@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 11:51:32 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/13 16:04:17 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/19 16:05:36 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,12 @@ char	*env_find(char *str, char **env, t_ms *m)
 			var[j++] = str[i++];
 		var[j] = '\0';
 		j = 0;
-		i = ft_strlen(var);
-		while (env[j] && ft_strncmp(var, env[j], i))
+		while (env[j] && ft_strncmp(var, env[j], ft_strlen(var)))
 			j++;
-		if (env[j] && !ft_strncmp(var, env[j], i))
+		if (env[j] && !ft_strncmp(var, env[j], ft_strlen(var)))
 		{
 			free(var);
-			return (env[j] + i + 1);
+			return (env[j] + ft_strlen(var) + 1);
 		}
 		else if (!env[j])
 			return (lst_env(var, m));

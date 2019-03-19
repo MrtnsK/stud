@@ -6,24 +6,11 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 16:37:29 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/13 16:04:57 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/03/19 18:35:33 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int		spc_cnt(char *str)
-{
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	while (str[i])
-		if (str[i++] == ' ')
-			j++;
-	return (j);
-}
 
 void	set_env(char *env, t_ms *m)
 {
@@ -54,8 +41,16 @@ void	set_env(char *env, t_ms *m)
 	ft_freetab(tab);
 }
 
+void	freenc(char *name, char *content)
+{
+	ft_strdel(&name);
+	ft_strdel(&content);
+}
+
 void	unset_env_while(t_var *af, t_var *prev, t_ms *m, char *del)
 {
+	void	*tmp;
+
 	while (af)
 	{
 		if (af->name)
@@ -63,16 +58,17 @@ void	unset_env_while(t_var *af, t_var *prev, t_ms *m, char *del)
 			{
 				if (!ft_strcmp(prev->name, af->name))
 				{
-					ft_strdel(&m->var->name);
-					ft_strdel(&m->var->content);
+					tmp = m->var;
 					m->var = m->var->next;
+					freenc(m->var->name, m->var->content);
 				}
 				else
 				{
+					tmp = prev->next;
 					prev->next = af->next;
-					ft_strdel(&af->name);
-					ft_strdel(&af->content);
+					freenc(af->name, af->content);
 				}
+				tmp ? free(tmp) : 0;
 				break ;
 			}
 		prev = af;
@@ -93,12 +89,12 @@ void	unset_env(t_ms *m)
 		write(1, "usage: unsetenv [name ...]\n", 27);
 		return ;
 	}
-	del = ft_strsub(m->cmd, 9, ft_strlen(m->cmd) - 9);
+	del = ft_strdup(m->cmd + 9);
 	if (!(af = m->var))
 		return ;
 	prev = af;
 	unset_env_while(af, prev, m, del);
-	free(del);
+	ft_strdel(&del);
 }
 
 void	init_env(char **env, t_ms *m)
