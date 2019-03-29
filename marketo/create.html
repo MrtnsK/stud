@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Créer un compte</title>
+    <link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/log.css"/>
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
+</head>
+<body bgcolor="#2e3131">
+<div class="login-page">
+    <div class="box">
+        <p class="title">Créer un compte</p>
+        <div>
+            <form method="post" action="/create_account.php">
+                <h2 class="font"></h2>
+                <input placeholder="Votre pseudo" type="text" name="login" size="27" class="font">
+                <input placeholder="Entrez le mot de passe" type="password" name="passwd" size="27" class="font">
+                <input placeholder="Entrez le mot de passe à nouveau" type="password" name="rpasswd" size="27"
+                       class="font">
+                <button type="submit" value="OK" name="submit" class="button">Créer</button>
+
+            </form>
+            <a href="/login.html">
+                <button class="button" id="mv">Retour</button>
+            </a></div>
+    </div>
+</div>
+<footer> © Copyright 2019 All rights reserved to agissing and kemartin.</footer>
+</body>
+</html>

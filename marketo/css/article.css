@@ -1,0 +1,123 @@
+/* CONTAINER */
+.boutique {
+    display: flex;
+    margin: 10px 0;
+    width: 100%;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    font-family: 'Quicksand', sans-serif;
+    color: #000000;
+    font-size: 1.1em;
+    padding: 0;
+}
+
+/* CARD */
+
+.card {
+    margin: 10px;
+    border-radius: 5px;
+    background: linear-gradient(to bottom, #FFFFFF, #AAAAAA);
+}
+
+.article-card {
+    z-index: 5;
+    border-radius: 5px;
+    box-shadow: 1px 5px 15px #000000;
+    height: 350px;
+    width: 300px;
+    display: block;
+    position: relative;
+    text-align: center;
+}
+
+/* IMAGE */
+.img-cont {
+    height: 70%;
+    width: 100%;
+    position: relative;
+}
+
+.article-card img {
+    max-height: 95%;  
+    max-width: 95%; 
+    width: auto;
+    height: auto;
+    position: absolute;  
+    top: 0;
+    left: 0;  
+    right: 0;
+    margin: 5px auto auto auto;
+    border-radius: 3px;
+}
+
+/* TITLE */
+
+.article-card p {
+    margin: 0;
+    height: 30px;
+    max-height: 30px;
+    padding: 10px 0 0 0;
+}
+
+/* PRICE PANEL */
+
+.article-card.price-div {
+    background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.5), rgba(65, 47, 17, 0.5));
+    border: none;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    text-align: center;
+    opacity: 0;
+    transition: all 0.5s ease-in;
+    z-index: 10;
+}
+
+.card:hover .article-card.price-div {
+    opacity: 1;
+    height: 350px;
+    transition: all 0.5s ease-in;
+}
+
+/* PRICE TAG */
+
+.article-card.price-div h1 {
+    margin: auto auto 0 auto;
+    font-size: 60px;
+    /* width: 10%; */
+    /* display: block; */
+    font-family: 'Quicksand', sans-serif;
+    font-weight: lighter;
+    color: #000000;
+}
+
+/* FORM ADD TO CART */
+
+.article-card form {
+    text-align: center;
+    margin: auto;
+}
+
+/* BUTTON */
+
+.article-card button {
+    padding: 5px 20px;
+    border-radius: 5px;
+    font-size: 1.3em;
+    font-weight: 300;
+    color: white;
+    border: solid 1px black;
+    background-color: #d44b55;
+    margin: auto;
+    cursor: pointer;
+    transition: all 0.2s ease-out;
+}
+
+.article-card button:hover {
+    transition: all 0.2s ease-in;
+    background-color: #ce6a72;
+}
+
+.article-card button:after {
+    background-color: #d44b55;
+}
