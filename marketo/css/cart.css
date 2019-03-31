@@ -1,6 +1,7 @@
 /* CART TABLE */
 #shopping-cart {
-	max-width: 80%;
+	max-width: 1200px;
+	width: 80%;
 	margin: auto;
 	font-family: 'Abel', sans-serif;
 }
@@ -70,4 +71,18 @@ footer {
 	width:100%;
 	display:block;
 	color: #CCCCCC;
+}
+#pointure {
+	margin: auto;
+	transform-origin:center;
+	border-radius:0;
+	font-family: 'Abel', sans-serif;
+	width:40px;
+	font-size:1rem;
+	background:none;
+	position:relative;
+	color: #000000;
+}
+#hidsel {
+	border:none;
 }

@@ -1,0 +1,25 @@
+.admin-tab-center {
+    width: 80%;
+    margin: auto;
+    max-width: 1200px;
+}
+
+#orders-table {
+    color: white;
+    font-family: 'Abel', sans-serif;
+    font-size: 1.3em;
+}
+
+#orders-table td {
+    color: white;
+    font-family: 'Abel', sans-serif;
+    font-family: 'Abel', sans-serif;
+    font-size: 15px;
+    padding: 5px;
+}
+
+#myChart {
+    max-height: 400px;
+    max-width: 900px;
+    margin: auto auto 50px auto;
+}

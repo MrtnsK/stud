@@ -57,11 +57,14 @@ else {
 <div class="head">
     <a href="/index.php"><h1 class="headtitle">El Marketo</h1></a>
     <div class="cont">
-        <a href="/admin/cat.php">
-            <button class="cart">Catégorie menu</button>
-        </a>
         <a href="/admin/index.php">
             <button class="cart">Home admin</button>
+        </a>
+        <a href="/admin/orders.php">
+            <button class="cart">Orders menu</button>
+        </a>
+        <a href="/admin/cat.php">
+            <button class="cart">Catégorie menu</button>
         </a>
         <a href="/logout.php">
             <button class="logout">Se déconnecter</button>

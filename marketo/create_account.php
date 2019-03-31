@@ -1,7 +1,7 @@
 <?php
     include('ft_log.php');
     $error_image = "respond.jpg";
-    if (isset($_POST['login'], $_POST['passwd'], $_POST['rpasswd'], $_POST['submit'])) {
+    if (isset($_POST['login'], $_POST['passwd'], $_POST['rpasswd'], $_POST['submit']) && $_POST['captcha'] == "captcha") {
         if ($_POST['rpasswd'] !== $_POST['passwd'] || $_POST['submit'] !== 'OK') {
             $error_message = ($_POST['submit'] !== 'OK') ? "Mauvaise requette !" : "Mot de passes non identiques !";
             $error_image = ($_POST['submit'] !== 'OK') ? "respond.jpg" : "brain_not_found.jpg";

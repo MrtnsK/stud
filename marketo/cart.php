@@ -59,8 +59,9 @@
                     $orders_db = array();
                     if (file_exists("private/orders"))
                         $orders_db = unserialize(file_get_contents("private/orders"));
-                    $cart['login'] = $_SESSION['login'];
-                    array_push($orders_db, $cart);
+                    $new_order['login'] = $_SESSION['login'];
+                    $new_order['order'] = $cart;
+                    array_push($orders_db, $new_order);
                     $f = fopen("private/orders", "w");
                     flock($f, LOCK_EX);
                     file_put_contents("private/orders", serialize($orders_db));
@@ -79,7 +80,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Admin</title>
+    <title>Panier</title>
     <link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
     <link rel="stylesheet" type="text/css" media="screen" href="/css/header.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="/css/cart.css" />
@@ -93,6 +94,9 @@
             <h1 class="headtitle">El Marketo</h1>
             </a>
             <div class="cont">
+            <a href="/index.php">
+                    <button class="logout">Accueil</button>
+                </a>
             <?php if (check_log()) { ?>
                 <a href="/logout.php">
                     <button class="logout">Se déconnecter</button>
@@ -113,6 +117,7 @@
                 <tr>
                     <th style="text-align:left;">Nom</th>
                     <th style="text-align:left;">Description</th>
+                    <th style="text-align:right;" width="5%">Pointure</th>
                     <th style="text-align:right;" width="5%">Qte.</th>
                     <th style="text-align:right;" width="10%">Prix<br>( in €)</th>
                     <th style="text-align:right;" width="10%">Total<br>( in €)</th>
@@ -129,7 +134,15 @@
                     <td><img src="<?= $value['image'] ?>"
                             class="cart-item-image"><?= htmlspecialchars($value['name']) ?></td>
                     <td><?= htmlspecialchars($value['description']) ?></td>
-                    <td style="text-align:right;"><?= $value['qte'] ?></td>
+                    <td style="text-align:center;">
+                        <div id="pointure">
+                        <select id="hidsel">
+                            <?php $i = 35;
+                            while ($i <= 45 &&  $i++) { ?>
+                                <option><?= $i?></option>
+                                <?php }?>
+                        </select></div></td>
+                    <td style="text-align:center;"><?= $value['qte'] ?></td>
                     <td style="text-align:right;"><?= number_format($value['price'], 2) ?></td>
                     <td style="text-align:right;"><?= number_format($value['price']*$value['qte'], 2) ?></td>
                     <td style="text-align:center;">
@@ -144,8 +157,8 @@
                 </tr>
                 <?php } ?>
                 <tr>
-                    <td colspan="2" align="right">Total:</td>
-                    <td align="right"><?= $total_qte ?></td>
+                    <td colspan="3" align="right">Total:</td>
+                    <td align="center"><?= $total_qte ?></td>
                     <td align="right" colspan="2"><strong><?= number_format($total_price, 2) ?></strong></td>
                     <td colspan="3"></td>
                 </tr>

@@ -56,6 +56,9 @@ if (isset($_GET['delete'])) {
             <a href="/admin/index.php">
                 <button class="cart">Home admin</button>
             </a>
+            <a href="/admin/orders.php">
+                <button class="cart">Orders menu</button>
+            </a>
             <a href="/admin/user.php">
                 <button class="cart">Users menu</button>
             </a>

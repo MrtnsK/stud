@@ -21,6 +21,10 @@
             setcookie('cart', encrypt_data(serialize($data)));
     }
     function cart_merge($cart, $cart2) {
+        if (!count($cart))
+            return $cart2;
+        if (!count($cart2))
+            return $cart;
         foreach ($cart2 as $index => $article) {
             if (!isset($cart[$index])) {
                 $new_article = $article;

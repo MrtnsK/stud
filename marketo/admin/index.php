@@ -19,6 +19,7 @@ if (file_exists("../private/categorie"))
 $articles_db = array();
 if (file_exists("../private/articles"))
     $articles_db = array_filter(unserialize(file_get_contents("../private/articles")));
+
 if (isset($_GET['delete'])) {
     if (isset($articles_db[$_GET['delete']], $articles_db[$_GET['delete']]['image'])) {
         unlink($articles_db[$_GET['delete']]['image']);
@@ -84,6 +85,9 @@ if (isset($_GET['delete'])) {
             <h1 class="headtitle">El Marketo</h1>
         </a>
         <div class="cont">
+            <a href="/admin/orders.php">
+                <button class="cart">Orders menu</button>
+            </a>
             <a href="/admin/cat.php">
                 <button class="cart">Catégorie menu</button>
             </a>
@@ -95,7 +99,8 @@ if (isset($_GET['delete'])) {
             </a>
         </div>
     </div>
-     <?php if (!isset($error_message)) { ?> <div class="admintab">
+    <?php if (!isset($error_message)) { ?>
+    <div class="admintab">
         <div>
             <form method="post" action="../admin/index.php" enctype="multipart/form-data">
                 <h2 class="texte">Ajoutez un article</h2>
@@ -109,7 +114,7 @@ if (isset($_GET['delete'])) {
                         <div class="select-group">
                             <select name="categorie">
                                 <?php if (!empty($cat_db)) { foreach ($cat_db as $cat) { ?>
-                                    <option><?= htmlspecialchars($cat) ?></option>
+                                <option><?= htmlspecialchars($cat) ?></option>
                                 <?php  }} ?>
                             </select>
                             <div class="arrow">▼</div>
@@ -120,67 +125,62 @@ if (isset($_GET['delete'])) {
                 </div>
             </form>
         </div>
-        </div>
-        <?php
-if (count($articles_db)) { ?>
-        <div class="admin-tab-center">
-            <table>
-                <tbody>
-                    <?php
-        foreach ($articles_db as $id => $article) { ?>
-                    <form method="post" action="../admin/edit.php" enctype="multipart/form-data">
-                        <tr>
-                            <td align="center">
-                                <input class="admintab-texte" value="<?= htmlspecialchars($article['name']) ?>"
-                                    name="name">
-                            </td>
-                            <td align="center">
-                                <input class="admintab-texte" value="<?= htmlspecialchars($article['description']) ?>"
-                                    name="description">
-                            </td>
-                            <td align="center">
-                                <input type="number" name="price" min="0.00" max="99999.99" step="0.01"
-                                    class="admintab-texte" value="<?= htmlspecialchars($article['price']) ?>">
-                            </td>
-                            <td align="center">
-                                <section>
-                                    <div>
-                                        <select name="categorie" id="noborder">
-                                            <option selected="selected"><?= htmlspecialchars($article['categorie']) ?></option>
-                                            <?php $sort_cat = array_filter($cat_db, function ($catt) use ($article) {return ($catt != $article['categorie']);}); if (!empty($sort_cat)) { foreach ($sort_cat as $cat) { ?>
-                                                <option><?= htmlspecialchars($cat) ?></option>
-                                            <?php  }} ?>
-                                        </select>
-                                    </div>
-                                </section>
-                            </td>
-                            <td align="center">
-                                <label for="imageedit">
-                                    <img src="<?= htmlspecialchars($article['image']) ?>" />
-                                </label>
-                                <input style="display: none;" type="file" id="imageedit" name="image">
-                            </td>
-                            <td align="center">
-                                <a href="/admin/index.php?delete=<?= urlencode($id) ?>">❌</a>
-                            </td>
-                            <td align="center">
-                                <input type="hidden" name="article_id" value="<?= $id ?>">
-                                <button type="submit" name="submit" value="OK" id="editbutton">Editer</button>
-                            </td>
-                        </tr>
-                    </form>
-                    <?php
-        }
-        }
-        ?>
-                </tbody>
-            </table>
-        </div>
-        <?php }else{ ?>
-        <h1 align='center'><?= $error_message ?></h1>
-        <p align='center'><img src='/img/<?= $error_image ?>' alt="error"></p>
-        <?php } ?>
-        <footer> © Copyright 2019 All rights reserved to agissing and kemartin.</footer>
+    </div>
+    <?php if (count($articles_db)) { ?>
+    <div class="admin-tab-center">
+        <table>
+            <tbody>
+                <?php foreach ($articles_db as $id => $article) { ?>
+                <form method="post" action="../admin/edit.php" enctype="multipart/form-data">
+                    <tr>
+                        <td align="center">
+                            <input class="admintab-texte" value="<?= htmlspecialchars($article['name']) ?>" name="name">
+                        </td>
+                        <td align="center">
+                            <input class="admintab-texte" value="<?= htmlspecialchars($article['description']) ?>"
+                                name="description">
+                        </td>
+                        <td align="center">
+                            <input type="number" name="price" min="0.00" max="99999.99" step="0.01"
+                                class="admintab-texte" value="<?= htmlspecialchars($article['price']) ?>">
+                        </td>
+                        <td align="center">
+                            <section>
+                                <div>
+                                    <select name="categorie" id="noborder">
+                                        <option selected="selected"><?= htmlspecialchars($article['categorie']) ?>
+                                        </option>
+                                        <?php $sort_cat = array_filter($cat_db, function ($catt) use ($article) {return ($catt != $article['categorie']);}); if (!empty($sort_cat)) { foreach ($sort_cat as $cat) { ?>
+                                        <option><?= htmlspecialchars($cat) ?></option>
+                                        <?php  }} ?>
+                                    </select>
+                                </div>
+                            </section>
+                        </td>
+                        <td align="center">
+                            <label for="imageedit">
+                                <img src="<?= htmlspecialchars($article['image']) ?>" />
+                            </label>
+                            <input style="display: none;" type="file" id="imageedit" name="image">
+                        </td>
+                        <td align="center">
+                            <a href="/admin/index.php?delete=<?= urlencode($id) ?>">❌</a>
+                        </td>
+                        <td align="center">
+                            <input type="hidden" name="article_id" value="<?= $id ?>">
+                            <button type="submit" name="submit" value="OK" id="editbutton">Editer</button>
+                        </td>
+                    </tr>
+                </form>
+                <?php }} ?>
+            </tbody>
+        </table>
+    </div>
+    <?php }else{ ?>
+    <h1 align='center'><?= $error_message ?></h1>
+    <p align='center'><img src='/img/<?= $error_image ?>' alt="error"></p>
+    <?php } ?>
+    <footer> © Copyright 2019 All rights reserved to agissing and kemartin.</footer>
 </body>
 
 </html>

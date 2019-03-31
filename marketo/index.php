@@ -25,7 +25,6 @@ if (!empty($_POST))
 <div class="head">
     <a href="index.php"><h1 class="headtitle">El Marketo</h1></a>
     <div class="cont">
-        <?php if (check_log()) { ?>
             <div class="dropdown">
                 <button class="dropbtn">Catégories</button>
                 <div class="dropdown-content">
@@ -35,11 +34,12 @@ if (!empty($_POST))
                   <?php  }} ?>
                 </div>
             </div>
+        <?php if (check_log()) { ?>
             <a href="/cart.php">
                 <button class="cart">Panier</button>
             </a>
             <a href="/account_edit.php">
-                <button class="cart">Compte</button>
+                <button class="cart">Mon compte</button>
             </a>
             <a href="/logout.php">
                 <button class="logout">Se déconnecter</button>
@@ -61,7 +61,7 @@ if (!empty($_POST))
             return ($value['categorie'] == $_GET['categorie']);
         });
     foreach ($articles_db as $index => $article) {
-        ?>
+    ?>
         <div class="card">
             <div class="article-card price-div">
                 <h1><?= htmlspecialchars($article['price']) ?>€</h1>
