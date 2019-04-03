@@ -6,20 +6,36 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:11:19 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/13 15:50:00 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/04/03 19:30:56 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	ft_replace(char **old, char *new)
+{
+	ft_strdel(old);
+	(*old) = ft_strdup(new);
+}
+
 void	cd_function(char *dir, t_ms *m, char **env)
 {
 	DIR		*f;
+	char	cwd[1025];
+	t_var	*af;
 
+	af = m->var;
 	if ((f = opendir(env_find(dir, env, m))))
 	{
 		closedir(f);
 		chdir(env_find(dir, env, m));
+		getcwd(cwd, 1024);
+		while (af && af->name)
+		{
+			if (!ft_strcmp(af->name, "PWD"))
+				ft_replace(&af->content, cwd);
+			af = af->next;
+		}
 	}
 	else
 	{
