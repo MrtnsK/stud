@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:11:52 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/19 16:44:55 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/04/05 19:46:30 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ int		var_exe_cmd(t_ms *m, char **env)
 	|| !ft_strcmp("env -i", m->cmd))
 		show_env(m, env);
 	else if (!ft_strncmp("setenv ", m->cmd, 7) && m->cmd[7])
-		set_env(m->cmd, m);
+		set_env(m->cmd, m, env);
 	else if (!ft_strcmp("setenv", m->cmd))
-		set_env(m->cmd, m);
+		set_env(m->cmd, m, env);
 	else if (!ft_strncmp("unsetenv ", m->cmd, 9) && m->cmd[9])
 		unset_env(m);
 	else if (!ft_strcmp("unsetenv", m->cmd))
@@ -52,15 +52,19 @@ int		var_exe_cmd(t_ms *m, char **env)
 int		is_wp(char *str)
 {
 	int		i;
+	int		s;
 
 	i = 0;
+	s = 0;
 	if (str && str[i])
 		while (str[i])
 		{
 			if (str[i] != ' ' || str[i] != '\t' || str[i] != '\n')
-				return (1);
+				s++;
 			i++;
 		}
+	if (s != 0)
+		return (1);
 	return (0);
 }
 
@@ -78,8 +82,9 @@ int		exe_cmd(t_ms *m, char **env)
 		cd_function(tmp, m, env);
 		ft_strdel(&tmp);
 	}
-	else if (!ft_strcmp(m->cmd, "cd") || !ft_strcmp(m->cmd, "cd ~"))
-		gohome();
+	else if (!ft_strcmp(m->cmd, "cd") || !ft_strcmp(m->cmd, "cd ~")
+	|| !ft_strcmp(m->cmd, "cd -"))
+		gohome(m, env);
 	else if ((!ft_strncmp("echo ", m->cmd, 5) && m->cmd[5])
 	|| !ft_strcmp("echo", m->cmd))
 		echo_function(env, m);

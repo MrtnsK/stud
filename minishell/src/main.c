@@ -6,11 +6,18 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 19:25:52 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/19 16:45:40 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/04/05 18:02:04 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	cd_notfound(char *dir, t_ms *m, char **env)
+{
+	write(1, "cd: no such file or directory: ", 32);
+	ft_putstr(env_find(dir, env, m));
+	write(1, "\n", 1);
+}
 
 void	show_prompt(void)
 {

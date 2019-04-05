@@ -6,13 +6,13 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 16:37:29 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/19 18:35:33 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/04/05 19:03:41 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	set_env(char *env, t_ms *m)
+void	set_env(char *env, t_ms *m, char **origin_env)
 {
 	char	**tab;
 	t_var	*af;
@@ -31,7 +31,7 @@ void	set_env(char *env, t_ms *m)
 		if (!ft_strcmp(af->name, tab[1]))
 		{
 			ft_strdel(&af->content);
-			af->content = ft_strdup(tab[2]);
+			af->content = ft_strdup(env_find(tab[2], origin_env, m));
 			ft_freetab(tab);
 			return ;
 		}

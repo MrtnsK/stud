@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/06 15:29:59 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/19 18:32:59 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/04/05 19:50:50 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,19 @@ char	*is_this_home(char *may)
 	return (may);
 }
 
-void	gohome(void)
+void	gohome(t_ms *m, char **env)
 {
-	chdir("/Users/kemartin");
+	t_var *af;
+
+	af = m->var;
+	if (!ft_strcmp(m->cmd, "cd ~") || !ft_strcmp(m->cmd, "cd"))
+		chdir("/Users/kemartin");
+	else if (!ft_strcmp(m->cmd, "cd -"))
+	{
+		ft_putstr("avant \n");
+		cd_function(env_find("$OLDPWD", env, m), m, env);
+		ft_putstr("apres\n");
+	}
 }
 
 void	quote_case(char *str)

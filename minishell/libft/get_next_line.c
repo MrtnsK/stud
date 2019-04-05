@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/11 14:35:51 by kemartin          #+#    #+#             */
-/*   Updated: 2018/12/11 14:35:53 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/04/05 19:00:42 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ int				get_next_line(const int fd, char **line)
 	if (fd < 0 || !line || (!file && !(file = ft_newfile(fd))))
 		return (-1);
 	cur = ft_srchfile(file, fd);
-	if (!cur || (!(cur->data) && !(cur->data = ft_strnew(0))) ||
-			!(buf = ft_strnew(BUFF_SIZE)))
+	if (!cur || (!(cur->data) && !(cur->data = ft_strnew(0)))
+	|| !(buf = ft_strnew(BUFF_SIZE)))
 		return (-1);
 	while (!(r = 0) && !ft_strchr(cur->data, '\n') && !ft_strchr(buf, '\n')
 			&& (r = read(fd, buf, BUFF_SIZE)) > 0)

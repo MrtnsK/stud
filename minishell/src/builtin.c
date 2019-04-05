@@ -6,45 +6,30 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:11:19 by kemartin          #+#    #+#             */
-/*   Updated: 2019/04/05 16:14:51 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/04/05 19:47:11 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_replace(char **old, char *new)
-{
-	ft_strdel(old);
-	(*old) = ft_strdup(new);
-}
-
 void	cd_function(char *dir, t_ms *m, char **env)
 {
 	DIR		*f;
 	char	cwd[1025];
-	t_var	*af;
+	int		ret;
 
-	af = m->var;
-	ft_clear_dir(&dir);
+	ret = ft_clear_dir(&dir);
 	if ((f = opendir(env_find(dir, env, m))))
 	{
 		closedir(f);
 		chdir(env_find(dir, env, m));
 		getcwd(cwd, 1024);
-		while (af && af->name)
-		{
-			if (!ft_strcmp(af->name, "PWD"))
-				ft_replace(&af->content, cwd);
-			af = af->next;
-		}
+		set_oldpwd(m, cwd);
 	}
 	else
-	{
-		write(1, "cd: no such file or directory: ", 32);
-		ft_putstr(env_find(dir, env, m));
-		write(1, "\n", 1);
-	}
-	ft_strdel(&dir);
+		cd_notfound(dir, m, env);
+	if (ret == 1)
+		ft_strdel(&dir);
 }
 
 int		path_cmd(t_ms *m, char **env, char **arg)
@@ -62,6 +47,8 @@ int		path_cmd(t_ms *m, char **env, char **arg)
 	if (!af || !(path = ft_strsplit(af->content, ':')))
 		return (0);
 	j = 0;
+	if (!arg[0])
+		return (0);
 	cpy = ft_strdup(arg[0]);
 	while (path[j])
 	{
@@ -83,6 +70,11 @@ int		bin_cmd(t_ms *m, char **env)
 	int		status;
 
 	arg = ft_strsplit(m->cmd, ' ');
+	if (!arg && !arg[1])
+	{
+		ft_freetab(arg);
+		return (0);
+	}
 	ft_clear_path(&arg[1]);
 	pid = fork();
 	signal(SIGINT, ctrlc);

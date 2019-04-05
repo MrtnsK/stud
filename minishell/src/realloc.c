@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/07 14:50:41 by kemartin          #+#    #+#             */
-/*   Updated: 2019/04/05 16:21:23 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/04/05 16:53:42 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_clear_path(char **arg)
 	}
 }
 
-void	ft_clear_dir(char **dir)
+int		ft_clear_dir(char **dir)
 {
 	char	*tmp;
 
@@ -46,15 +46,16 @@ void	ft_clear_dir(char **dir)
 		{
 			ft_strdel(&(*dir));
 			(*dir) = ft_strdup("/Users/kemartin/");
-			return ;
+			return (1);
 		}
 		if ((*dir)[1] && (*dir)[1] == '/')
 		{
 			tmp = "/Users/kemartin";
 			(*dir) = ft_strjoin(tmp, (*dir + 1));
-			return ;
+			return (1);
 		}
 	}
+	return (0);
 }
 
 char	*reallocstr(char *str)

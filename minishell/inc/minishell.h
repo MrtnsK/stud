@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 19:27:01 by kemartin          #+#    #+#             */
-/*   Updated: 2019/04/05 16:08:45 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/04/05 19:46:28 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void			show_env(t_ms *m, char **env);
 void			ctrlc(int sign);
 void			exit_function(t_ms *m);
 char			*is_this_home(char *may);
-void			gohome(void);
+void			gohome(t_ms *m, char **env);
 void			quote_case(char *str);
 int				spc_cnt(char *str);
 void			get_cmd(t_ms *m);
@@ -57,7 +57,7 @@ int				cmd_not_found(char *cmd, int ret);
 int				var_exe_cmd(t_ms *m, char **env);
 int				is_wp(char *str);
 int				exe_cmd(t_ms *m, char **env);
-void			set_env(char *env, t_ms *m);
+void			set_env(char *env, t_ms *m, char **origin_env);
 void			freenc(char *name, char *content);
 void			unset_env_while(t_var *af, t_var *prev, t_ms *m, char *del);
 void			unset_env(t_ms *m);
@@ -72,6 +72,9 @@ char			*reallocstr(char *str);
 char			*arg_adjustment(char *path, char *str);
 void			ft_freetab(char **tab);
 void			ft_clear_path(char **arg);
-void			ft_clear_dir(char **dir);
+int				ft_clear_dir(char **dir);
+void			cd_notfound(char *dir, t_ms *m, char **env);
+void			set_oldpwd(t_ms *m, char cwd[1025]);
+void			ft_replace(char **old, char *new);
 
 #endif
