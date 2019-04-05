@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 19:27:01 by kemartin          #+#    #+#             */
-/*   Updated: 2019/03/19 18:41:31 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/04/05 16:08:45 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,7 @@ void			starting(void);
 char			*reallocstr(char *str);
 char			*arg_adjustment(char *path, char *str);
 void			ft_freetab(char **tab);
+void			ft_clear_path(char **arg);
+void			ft_clear_dir(char **dir);
 
 #endif
