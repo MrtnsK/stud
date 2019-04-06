@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:11:52 by kemartin          #+#    #+#             */
-/*   Updated: 2019/04/05 19:46:30 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/04/06 17:28:24 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,17 @@ int		var_exe_cmd(t_ms *m, char **env)
 int		is_wp(char *str)
 {
 	int		i;
-	int		s;
 
 	i = 0;
-	s = 0;
-	if (str && str[i])
-		while (str[i])
-		{
-			if (str[i] != ' ' || str[i] != '\t' || str[i] != '\n')
-				s++;
-			i++;
-		}
-	if (s != 0)
-		return (1);
+	if (str[0] == '\0')
+		return (0);
+	while (str[i])
+	{
+		if (str[i] != ' ' && str[i] != '\t' && str[i] != '\n'
+		&& str[i] != '\v' && str[i] != '\f' && str[i] != '\r')
+			return (1);
+		i++;
+	}
 	return (0);
 }
 
@@ -74,7 +72,7 @@ int		exe_cmd(t_ms *m, char **env)
 
 	if (is_wp(m->cmd) == 0)
 		return (0);
-	else if (!ft_strcmp(m->cmd, "exit"))
+	if (!ft_strcmp(m->cmd, "exit"))
 		exit_function(m);
 	else if (!ft_strncmp("cd ", m->cmd, 3) && m->cmd[4])
 	{

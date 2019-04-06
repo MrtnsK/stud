@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 16:37:29 by kemartin          #+#    #+#             */
-/*   Updated: 2019/04/05 19:03:41 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/04/06 18:07:42 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ void	set_env(char *env, t_ms *m, char **origin_env)
 
 	j = spc_cnt(env);
 	if (j != 2 || ft_strlen(env) == 0)
-	{
-		write(1, "usage: setenv [name ...] [data ...]\n", 36);
-		return ;
-	}
+		return (ft_putstr("usage: setenv [name ...] [data ...]\n"));
 	af = m->var;
 	tab = ft_strsplit(env, ' ');
 	while (af)
@@ -39,6 +36,7 @@ void	set_env(char *env, t_ms *m, char **origin_env)
 	}
 	ft_lst_push_back(&m->var, tab[1], tab[2]);
 	ft_freetab(tab);
+	env_push(m, env);
 }
 
 void	freenc(char *name, char *content)
@@ -106,7 +104,8 @@ void	init_env(char **env, t_ms *m)
 	while (env[j])
 	{
 		tmp = ft_strsplit(env[j], '=');
-		ft_lst_push_back(&m->var, tmp[0], tmp[1]);
+		if (tmp && tmp[0] && tmp[1])
+			ft_lst_push_back(&m->var, tmp[0], tmp[1]);
 		ft_freetab(tmp);
 		j++;
 	}

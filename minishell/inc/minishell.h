@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 19:27:01 by kemartin          #+#    #+#             */
-/*   Updated: 2019/04/05 19:46:28 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/04/06 18:07:41 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,19 +62,23 @@ void			freenc(char *name, char *content);
 void			unset_env_while(t_var *af, t_var *prev, t_ms *m, char *del);
 void			unset_env(t_ms *m);
 void			init_env(char **env, t_ms *m);
+int				ft_varsize(t_var *list);
+void			cd_notfound(char *dir, t_ms *m, char **env);
+void			show_prompt(void);
+void			ft_replace(char **old, char *new);
+void			set_oldpwd(t_ms *m, char cwd[1025]);
 t_var			*ft_create_lst(char *name, char *data);
 void			ft_lst_push_back(t_var **var, char *name, char *data);
 void			ft_lst_clear(t_var **var);
-void			show_prompt(void);
-void			silence_warning(int ac, char **av, char **env);
 void			starting(void);
+void			silence_warning(int ac, char **av, char **env);
+void			execenv(char **env, char *var);
+void			env_push(t_ms *m, char *var);
+void			ft_clear_path(char **arg);
+int				ft_clear_dir(char **dir);
 char			*reallocstr(char *str);
 char			*arg_adjustment(char *path, char *str);
 void			ft_freetab(char **tab);
-void			ft_clear_path(char **arg);
-int				ft_clear_dir(char **dir);
-void			cd_notfound(char *dir, t_ms *m, char **env);
-void			set_oldpwd(t_ms *m, char cwd[1025]);
-void			ft_replace(char **old, char *new);
+
 
 #endif

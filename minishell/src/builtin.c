@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:11:19 by kemartin          #+#    #+#             */
-/*   Updated: 2019/04/05 19:47:11 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/04/06 15:42:49 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int		path_cmd(t_ms *m, char **env, char **arg)
 	char	*cpy;
 	t_var	*af;
 
-	j = 0;
 	if (!(af = m->var))
 		return (0);
 	while (af && ft_strncmp(af->name, "PATH", 4))
@@ -47,8 +46,6 @@ int		path_cmd(t_ms *m, char **env, char **arg)
 	if (!af || !(path = ft_strsplit(af->content, ':')))
 		return (0);
 	j = 0;
-	if (!arg[0])
-		return (0);
 	cpy = ft_strdup(arg[0]);
 	while (path[j])
 	{
@@ -69,6 +66,8 @@ int		bin_cmd(t_ms *m, char **env)
 	char	**arg;
 	int		status;
 
+	if (!m->cmd)
+		return (0);
 	arg = ft_strsplit(m->cmd, ' ');
 	if (!arg && !arg[1])
 	{
