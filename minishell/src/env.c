@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 16:37:29 by kemartin          #+#    #+#             */
-/*   Updated: 2019/04/06 18:07:42 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/04/30 15:57:41 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	set_env(char *env, t_ms *m, char **origin_env)
 	}
 	ft_lst_push_back(&m->var, tab[1], tab[2]);
 	ft_freetab(tab);
-	env_push(m, env);
 }
 
 void	freenc(char *name, char *content)

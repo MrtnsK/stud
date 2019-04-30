@@ -6,7 +6,7 @@
 /*   By: kemartin <kemartin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 12:11:19 by kemartin          #+#    #+#             */
-/*   Updated: 2019/04/06 15:42:49 by kemartin         ###   ########.fr       */
+/*   Updated: 2019/04/30 16:04:11 by kemartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	cd_function(char *dir, t_ms *m, char **env)
 		closedir(f);
 		chdir(env_find(dir, env, m));
 		getcwd(cwd, 1024);
-		set_oldpwd(m, cwd);
+		set_oldpwd(&m, cwd);
 	}
 	else
 		cd_notfound(dir, m, env);
@@ -78,15 +78,11 @@ int		bin_cmd(t_ms *m, char **env)
 	pid = fork();
 	signal(SIGINT, ctrlc);
 	if (pid == 0)
-	{
 		if (execve(arg[0], arg, env) < 0 && path_cmd(m, env, arg) == 0)
 		{
 			ft_freetab(arg);
 			return (cmd_not_found(m->cmd, -1));
 		}
-	}
-	else if (pid < 0)
-		return (ft_putstr_int("unable to fork process\n", -1));
 	wait(&status);
 	ft_freetab(arg);
 	return (0);
